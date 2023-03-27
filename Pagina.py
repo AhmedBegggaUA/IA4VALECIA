@@ -846,6 +846,8 @@ try:
             gdf = pdf[(pdf['PrescriptionIndex'] == prescription_index) &
                         (pdf.CountryName == country_name) &
                         (pdf['RegionName'].isna() if region_name is None else (pdf['RegionName'] == 'region_name'))]
+            # gdf tiene que estar entre start_date_pres y end_date_pres 
+            gdf = gdf[(gdf['Date'] >= start_date_pres) & (gdf['Date'] <= end_date_pres)]
             # Comprobamos que la Date y las NPI_COLUMNS sean del mismo tamaño
             if len(gdf) != len(NPI_COLUMNS):
                 print("ERROR")
