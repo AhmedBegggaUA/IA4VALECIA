@@ -181,7 +181,7 @@ try:
     if selected == "Team":
         st.markdown('# Meet The Team')
         cols = st.columns((2,1))
-        cols[0].image("/Users/ahmedbegga/Downloads/team.jpeg",width=600)
+        cols[0].image("team.jpeg",width=600)
         cols[1].write('''### OUR MULTIDISCIPLINARY TEAM''')
         cols[1].write('''##### VALENCIA IA4COVID''',color = 'yellow')
         cols[1].write('''This group is made up of more than twenty experts from the Universities and research centers of the Valencian Community (Spain) and led by Dr. Nuria Oliver. We have all been working intensively since the beginning of the pandemic, altruistically and using the resources available to us in our respective institutions and with the occasional philanthropic collaboration of some companies.''')
