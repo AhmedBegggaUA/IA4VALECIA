@@ -873,6 +873,10 @@ try:
                 linecolor='black',
                 gridcolor='lightgrey'
             )
+            fig.update_layout(title='Prescription for '+country_name,  
+                            xaxis_title='Date', 
+                            yaxis_title='Value',
+                            font=dict(size=12))
             data_fig2 = fig
             st.plotly_chart(figure_or_data=fig)
     if selected == "GitHub":
