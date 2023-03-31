@@ -746,11 +746,11 @@ try:
             if start_date_pres > end_date_pres:
                 st.error('Error: End date must fall after start date.')
 
-        with cols[0]:
-            reg_pres = list(paises.index).count(country_pres)==1
-            region = " "
-            regiones = list(paises[paises.index == country_pres].RegionName.fillna(" "))
-            region = cols[0].selectbox("Choose the region ", regiones)
+        
+        reg_pres = list(paises.index).count(country_pres)==1
+        region = " "
+        #regiones = list(paises[paises.index == country_pres].RegionName.fillna(" "))
+        
         with cols[0]:
             index = ["Index 0","Index 1","Index 2","Index 3","Index 4",
                     "Index 5","Index 6","Index 7","Index 8","Index 9"]
