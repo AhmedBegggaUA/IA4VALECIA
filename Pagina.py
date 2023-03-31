@@ -38,7 +38,7 @@ def get_UN_data():
 @st.cache
 def get_prescriptions_and_stringency():
     #prescription = pd.read_csv("prescriptions/valencia_h7_sus_combined_may.csv")
-    prescription = pd.read_csv("prescriptions/standar_1_4.csv")
+    prescription = pd.read_csv("prescriptions/v4c_standar_1_4.csv")
     #stringency = pd.read_csv("nuevas_stringrncy/stringency_combined_h7_sus_may.csv")
     stringency = pd.read_csv("stringency/stringency_standar_1_4.csv")
     # Vamos a recorrer el fichero de prescripciones y hacer un dataframe con los datos
@@ -873,6 +873,17 @@ try:
             )
             data_fig2 = fig
             st.plotly_chart(figure_or_data=fig)
+    if selected == "GitHub":
+        st.markdown("## GitHub")
+        st.markdown("You can find the code of this project in the following link: [GitHub](https://github.com/malozano/covid-xprize )")
+        st.markdown("## Comparation with your own model")
+        st.markdown("In this section you can compare your model with the one we have developed. You can upload your own predictions and we will compare them with ours." )
+        st.markdown("### Upload your own predictions")
+        uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
+        if uploaded_file is not None:
+            # Can be used wherever a "file-like" object is accepted:
+            df = pd.read_csv(uploaded_file)
+            st.write(df)
 except URLError as e:
     st.error(
         """
