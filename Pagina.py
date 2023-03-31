@@ -786,10 +786,10 @@ try:
                                     marker=dict(size=10,
                                     color = 'rgb(29, 126, 235 )')))
             #This plot I use it to show the point that we are going to choose
-            fig.add_trace(go.Scatter(x=[np.asarray(cdf['Stringency'])[index]],y=[np.asarray(cdf['PredictedDailyNewCases'])[index]],
-                                    mode='markers',
-                                    marker=dict(size=14,color = 'rgb(255, 0, 0 )'),
-                                    line=dict(width=3,color='DarkSlateGrey')))
+            #fig.add_trace(go.Scatter(x=[np.asarray(cdf['Stringency'])[index]],y=[np.asarray(cdf['PredictedDailyNewCases'])[index]],
+            #                        mode='markers',
+            #                        marker=dict(size=14,color = 'rgb(255, 0, 0 )'),
+            #                        line=dict(width=3,color='DarkSlateGrey')))
             #Things to make the plot look better
             fig.update_layout(title='Pareto curve for '+country_name, 
                             xaxis_title='Stringency', 
