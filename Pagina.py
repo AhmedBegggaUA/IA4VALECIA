@@ -877,6 +877,12 @@ try:
                             xaxis_title='Date', 
                             yaxis_title='Value',
                             font=dict(size=12))
+            # Place the title in the middle
+            fig.update_layout(
+                #margin=dict(l=20, r=20, t=20, b=20),    
+                template='seaborn',
+                paper_bgcolor='white',
+            )
             data_fig2 = fig
             st.plotly_chart(figure_or_data=fig)
     if selected == "GitHub":
