@@ -764,8 +764,8 @@ try:
             #Get the data
             prescriptions,stringency = get_prescriptions_and_stringency()
             country_name = country_pres
-            if not reg_pres:
-                stringency = stringency[(stringency.RegionName == region)]
+            #if not reg_pres:
+            #    stringency = stringency[(stringency.RegionName == region)]
             cdf = stringency[(stringency['PrescriptorName'] == 'V4C') & (stringency.CountryName == country_pres)]
             #Plotly
             fig = go.Figure()
