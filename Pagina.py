@@ -776,6 +776,8 @@ try:
                                     mode='markers',
                                     marker=dict(size=10,color = 'rgb(29, 126, 235 )',
                                     line=dict(width=1,color='DarkSlateGrey'))))
+            # Dont show the legend
+            fig.update_layout(showlegend=False)
             #Adittional function to get the pareto front (in the furture we will move it to another file)
             xs, ys = plot_pareto_curve_plotly(list(cdf['Stringency']),list(cdf['PredictedDailyNewCases']))
             #Same thing as before
