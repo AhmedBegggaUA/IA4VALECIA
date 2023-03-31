@@ -38,7 +38,7 @@ def get_UN_data():
 @st.cache
 def get_prescriptions_and_stringency():
     #prescription = pd.read_csv("prescriptions/valencia_h7_sus_combined_may.csv")
-    prescription = pd.read_csv("prescriptions/v4c_standar_1_4.csv")
+    prescription = pd.read_csv("prescriptions/standar_1_4.csv")
     #stringency = pd.read_csv("nuevas_stringrncy/stringency_combined_h7_sus_may.csv")
     stringency = pd.read_csv("stringency/stringency_standar_1_4.csv")
     # Vamos a recorrer el fichero de prescripciones y hacer un dataframe con los datos
