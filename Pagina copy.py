@@ -33,9 +33,7 @@ data_URL = "https://raw.githubusercontent.com/OxCGRT/covid-policy-tracker/master
 st.set_page_config(page_title = 'V4C',page_icon='https://ellisalicante.org/assets/xprize/images/logo_oscuro.png',layout = 'wide')
 @st.cache
 def get_UN_data():
-    #paises = pd.read_csv("countries_regions.csv")
-    #return paises.set_index("CountryName")
-    paises = pd.read_csv("latest_predictions/h7_waning_casos/H7_waning_casos_2020_12.csv")
+    paises = pd.read_csv("countries_regions.csv")
     return paises.set_index("CountryName")
 @st.cache
 def get_prescriptions_and_stringency():
@@ -376,6 +374,7 @@ try:
 
         cols = st.columns((.2,1))
         paises = get_UN_data()
+        data_pred = pd.read_csv("predictions/robojudge_test.csv")
         with cols[0]:
             paises_list = list(paises.index.unique())
             paises_list.insert(0, "Europe")
@@ -383,64 +382,331 @@ try:
             country2 = st.selectbox(
                 "Choose countries ",paises_list
             )
-            modes = ["H7","H7 VacW","None","None VacW"]
-            mode = st.selectbox(
-                "Select a model ",modes
-            )
             
             months_list = ["January","February","March","April","May","June","July","Agost","September","October","November","December"]
             months_dates = ["2020-12-28","2021-01-31","2021-01-31","2021-02-28","2021-02-28","2021-03-31","2021-03-31","2021-04-30",
                             "2021-04-30","2021-05-31","2021-05-31","2021-06-30","2021-06-30","2021-07-31"]
             months_list_short = ["2021_1","2021_2","2021_3","2021_4","2021_5","2021_6","2021_7","2021_8","2021_9","2021_10","2021_11","2021_12"]
-            # TODO: Estoy aqui
+
             month = st.selectbox('Choose a month   ', months_list)
-            month = months_list_short[months_list.index(month)]
-            if mode == "H7":
-                # Let's read the file with the predictions
-                data = pd.read_csv("latest_predictions/h7_waning_casos/H7_waning_casos_"+month+".csv")
-                # Filter by the country
-                data = data[data.CountryName == country2].reset_index(drop=True)
-                # Group by date  
-                data = data.groupby("fecha").mean().reset_index()
-            elif mode == "H7 VacW":
-                data = pd.read_csv("latest_predictions/h7_waning_casos_vacunas/H7_waning_casos_vacunas_"+month+".csv")
-                # Filter by the country
-                data = data[data.CountryName == country2].reset_index(drop=True)
-                # Group by date  
-                data = data.groupby("fecha").mean().reset_index()
-            elif mode == "None":
-                data = pd.read_csv("latest_predictions/None_waning_casos/None_waning_casos_"+month+".csv")
-                # Filter by the country
-                data = data[data.CountryName == country2].reset_index(drop=True)
-                # Group by date  
-                data = data.groupby("fecha").mean().reset_index()
-            elif mode == "None VacW":
-                data = pd.read_csv("latest_predictions/None_waning_casos_vacunas/None_waning_casos_vacunas_"+month+".csv")
-                # Filter by the country
-                data = data[data.CountryName == country2].reset_index(drop=True)
-                # Group by date  
-                data = data.groupby("fecha").mean().reset_index()
-            # Now we plot the data
-            with cols[1]:
-                fig = go.Figure()
-                # Plot the ground truth in orange and dashed
-                fig.add_trace(go.Scatter(x=data['fecha'], y=data['truth'], mode='lines', name='Ground truth',line=dict(color='orange', width=4,dash='dash')))
-                # Plot the predictions in blue and solid
-                fig.add_trace(go.Scatter(x=data['fecha'], y=data['pred'], mode='lines', name='Predictions SVIR',line=dict(color='blue', width=2)))
-                # Plot the predictions in blue and solid
-                fig.add_trace(go.Scatter(x=data['fecha'], y=data['pred_sir'], mode='lines', name='Predictions SIR',line=dict(color='green', width=2)))
-                fig.update_layout(
-                margin=dict(l=20, r=20, t=20, b=20))
-                fig.update_layout(plot_bgcolor='rgba(0, 0, 0, 0)',paper_bgcolor='rgba(0, 0, 0, 0)',)
-                fig.update_yaxes(
-                        mirror=True,
-                        ticks='outside',
-                        showline=True,
-                        linecolor='black',
-                        gridcolor='lightgrey'
-                    )
-                st.plotly_chart(figure_or_data=fig,use_container_width=True)
+            H7_SUS_4_bool = True
+            H7_SUS_2_bool = False
+            H7_SUS_3_bool = False
+            smooth_bool = False
+        new_data = {}
+        overall_data = {}
+        europe_data = {}
+        overall_data2= {}
+    
+        start_date = pd.to_datetime(months_dates[months_list.index(month)*2],format = '%Y-%m-%d')
+        
+        if smooth_bool:
+            # Añadido el -7 para que empiece 7 dias antes [NEW]
+            start_date = start_date - np.timedelta64(7,'D')
+        end_date = pd.to_datetime(months_dates[months_list.index(month)*2+1],format = '%Y-%m-%d')
+    
+        
+        test = pd.read_csv("data/OxCGRT_latest.csv",parse_dates=["Date"])#parse
+
+        paises_utiles= test[test["CountryName"].isin(list(["Albania","Andorra","Austria","Azerbaijan","Belarus","Belgium","Bosnia and Herzegovina","Bulgaria","Croatia","Cyprus","Czech Republic",
+                    "Denmark","Estonia","Finland","France","Georgia","Germany","Greece","Hungary","Iceland","Ireland","Italy","Kazakhstan","Latvia","Liechtenstein",
+                    "Lithuania","Luxembourg","Malta","Moldova","Monaco","Netherlands","Norway","Poland","Portugal","Romania","San Marino","Serbia","Slovakia","Slovenia",
+                    "Spain","Sweden","Switzerland","Turkey","Ukraine","United Kingdom"]))]
+        if smooth_bool:
+            #[NEW]
+            # Cogemos los datos de la semana anterior al mes que queremos
+            if months_list_short[months_list.index(month)] == "jan":
+                star_day = "2020-12-24"
+                star_day = pd.to_datetime(star_day, format = '%Y-%m-%d')
+                end_day = "2020-12-31"
+                end_day = pd.to_datetime(end_day, format = '%Y-%m-%d')
+                data = pd.read_csv("data/OxCGRT_latest.csv")
+                data['Date'] = pd.to_datetime(data['Date'], format = '%Y%m%d')
+                semana_anterior = data[(data.Date >= star_day - np.timedelta64(1, 'D')) & (data.Date <= end_day + np.timedelta64(1, 'D'))]
+                semana_anterior["ConfirmedCases"] = semana_anterior["ConfirmedCases"].diff()
+                semana_anterior = semana_anterior[(semana_anterior.Date >= star_day) & (semana_anterior.Date <=end_day)]
+            else:            
+                end_day = "2021-0"+str(months_list.index(month)+1)+"-01" # 2021-0+"mes"+
+                st.write(end_day)
+                end_day = pd.to_datetime(end_day, format = '%Y-%m-%d')
+                star_day = end_day - np.timedelta64(7, 'D')
+                star_day = pd.to_datetime(star_day, format = '%Y-%m-%d')
+                data = pd.read_csv("data/OxCGRT_latest.csv")
+                data['Date'] = pd.to_datetime(data['Date'], format = '%Y%m%d')
+                semana_anterior = data[(data.Date >= star_day - np.timedelta64(1, 'D')) & (data.Date <= end_day + np.timedelta64(1, 'D'))]
+                semana_anterior["ConfirmedCases"] = semana_anterior["ConfirmedCases"].diff()
+                semana_anterior = semana_anterior[(semana_anterior.Date >= star_day) & (semana_anterior.Date <= end_day)]
+                    
+            # Lo mismo para los datos de la semana anterior[NEW]
+            paises_utiles_semana_anterior = semana_anterior[semana_anterior["CountryName"].isin(list(["Albania","Andorra","Austria","Azerbaijan","Belarus","Belgium","Bosnia and Herzegovina","Bulgaria","Croatia","Cyprus","Czech Republic",
+                        "Denmark","Estonia","Finland","France","Georgia","Germany","Greece","Hungary","Iceland","Ireland","Italy","Kazakhstan","Latvia","Liechtenstein",
+                        "Lithuania","Luxembourg","Malta","Moldova","Monaco","Netherlands","Norway","Poland","Portugal","Romania","San Marino","Serbia","Slovakia","Slovenia",
+                        "Spain","Sweden","Switzerland","Turkey","Ukraine","United Kingdom"]))]
+            paises_utiles = paises_utiles.append(paises_utiles_semana_anterior) #[NEW]
+        
+        data = pd.read_csv("data/OxCGRT_latest.csv")
+        data['Date'] = pd.to_datetime(data['Date'], format = '%Y%m%d')
+                
+        suma1 =paises_utiles[["Date","CountryName","ConfirmedCases"]].fillna(0).groupby("Date").sum().reset_index()
+        
+        #data= data[(data.Date >= start_date)&(data.Date <= end_date)&(data.CountryName == country)]
+        suma1 =suma1[(data.Date >= start_date)&(data.Date <= end_date)]
+        suma1["ConfirmedCases"] = suma1["ConfirmedCases"].diff()
+        data= data[(data.Date >= start_date)&(data.Date <= end_date)]
+        data2= data[(data.Date >= start_date+np.timedelta64(7,'D'))&(data.Date <= end_date)]
+        
+        
+                            
+        overall_data = data.groupby(["Date"])[["ConfirmedCases"]].sum().sort_values(by=["Date"])
+        overall_data2 = data2.groupby(["Date"])[["ConfirmedCases"]].sum().sort_values(by=["Date"])
+        #europe_data =paises_utiles[["Date","CountryName","ConfirmedCases"]].fillna(0).groupby("Date").sum()
+        data = data.set_index("Date")
+        data = data[data.CountryName == country2]
+        overall_data["ConfirmedCases"] = overall_data["ConfirmedCases"].diff()
+        import plotly.graph_objects as go
+        fig = go.Figure()
+        
+        #fig.add_trace(go.Scatter(x = overall_data.index, y = overall_data.ConfirmedCases,name = "Ground truth",visible = (country2 == "Overall"),line=dict(color='blue', width=4, dash='dash')))
+        if smooth_bool:
+            # Ahora hacemos la media a 7 dias de los datos de la semana anterior [NEW]
+            suma1["ConfirmedCases"] = suma1["ConfirmedCases"].rolling(7).mean()
+            data["ConfirmedCases"] = data["ConfirmedCases"].rolling(7).mean()
+            # Ahora hacemos la media a 7 dias de los datos de la semana anterior [NEW]
+            overall_data["ConfirmedCases"] = overall_data["ConfirmedCases"].rolling(7).mean()
+        #europe_data["ConfirmedCases"] = europe_data["ConfirmedCases"].diff()
+        new_data["Ground_truth"] = data["ConfirmedCases"].diff()
+        
+        
+        if H7_SUS_2_bool:
+            overall_H7_SUS_2_data={}
+            H7_SUS_2_data = pd.read_csv("Modelos/predicciones_ahmed/robojudge_test_H7_SUS_"
+                                +months_list_short[months_list.index(month)] + ".csv")
+            H7_SUS_2_data['Date'] = pd.to_datetime(H7_SUS_2_data['Date'], format = '%Y-%m-%d')
             
+            paises_utiles_H7_SUS_2= H7_SUS_2_data[H7_SUS_2_data["CountryName"].isin(list(["Albania","Andorra","Austria","Azerbaijan","Belarus","Belgium","Bosnia and Herzegovina","Bulgaria","Croatia","Cyprus","Czech Republic",
+                    "Denmark","Estonia","Finland","France","Georgia","Germany","Greece","Hungary","Iceland","Ireland","Italy","Kazakhstan","Latvia","Liechtenstein",
+                    "Lithuania","Luxembourg","Malta","Moldova","Monaco","Netherlands","Norway","Poland","Portugal","Romania","San Marino","Serbia","Slovakia","Slovenia",
+                    "Spain","Sweden","Switzerland","Turkey","Ukraine","United Kingdom"]))]
+            if smooth_bool:
+                #[NEW]
+                # Cogemos los datos de la semana anterior al mes que queremos
+                if months_list_short[months_list.index(month)] == "jan":
+                    star_day = "2020-12-24"
+                    star_day = pd.to_datetime(star_day, format = '%Y-%m-%d')
+                    end_day = "2020-12-31"
+                    end_day = pd.to_datetime(end_day, format = '%Y-%m-%d')
+                    data = pd.read_csv("data/OxCGRT_latest.csv")
+                    data['Date'] = pd.to_datetime(data['Date'], format = '%Y%m%d')
+                    semana_anterior = data[(data.Date >= star_day - np.timedelta64(1, 'D')) & (data.Date <= end_day + np.timedelta64(1, 'D'))]
+                    semana_anterior["ConfirmedCases"] = semana_anterior["ConfirmedCases"].diff()
+                    semana_anterior = semana_anterior[(semana_anterior.Date >= star_day) & (semana_anterior.Date <=end_day)]
+                    st.write(semana_anterior)
+                else:            
+                    end_day = "2021-0"+str(months_list.index(month)+1)+"-01" # 2021-0+"mes"+
+                    st.write(end_day)
+                    end_day = pd.to_datetime(end_day, format = '%Y-%m-%d')
+                    star_day = end_day - np.timedelta64(7, 'D')
+                    star_day = pd.to_datetime(star_day, format = '%Y-%m-%d')
+                    data = pd.read_csv("data/OxCGRT_latest.csv")
+                    data['Date'] = pd.to_datetime(data['Date'], format = '%Y%m%d')
+                    semana_anterior = data[(data.Date >= star_day - np.timedelta64(1, 'D')) & (data.Date <= end_day + np.timedelta64(1, 'D'))]
+                    semana_anterior["ConfirmedCases"] = semana_anterior["ConfirmedCases"].diff()
+                    semana_anterior = semana_anterior[(semana_anterior.Date >= star_day) & (semana_anterior.Date <= end_day)]
+                    
+                    
+                semana_anterior["PredictedDailyNewCases"] = semana_anterior["ConfirmedCases"]
+                # Lo mismo para los datos de la semana anterior[NEW]
+                paises_utiles_semana_anterior = semana_anterior[semana_anterior["CountryName"].isin(list(["Albania","Andorra","Austria","Azerbaijan","Belarus","Belgium","Bosnia and Herzegovina","Bulgaria","Croatia","Cyprus","Czech Republic",
+                        "Denmark","Estonia","Finland","France","Georgia","Germany","Greece","Hungary","Iceland","Ireland","Italy","Kazakhstan","Latvia","Liechtenstein",
+                        "Lithuania","Luxembourg","Malta","Moldova","Monaco","Netherlands","Norway","Poland","Portugal","Romania","San Marino","Serbia","Slovakia","Slovenia",
+                        "Spain","Sweden","Switzerland","Turkey","Ukraine","United Kingdom"]))]
+                paises_utiles_H7_SUS_2 = paises_utiles_H7_SUS_2.append(paises_utiles_semana_anterior) #[NEW]
+            
+            suma1_H7_SUS_2 =paises_utiles_H7_SUS_2[["Date","CountryName","PredictedDailyNewCases"]].fillna(0).groupby("Date").sum()
+            
+            #if smooth_bool:
+                # Ahora hacemos la media a 7 dias de los datos de la semana anterior [NEW]
+            #    suma1_H7_SUS_2["PredictedDailyNewCases"] = suma1_H7_SUS_2["PredictedDailyNewCases"].rolling(7).mean()
+            #    H7_SUS_2_data["PredictedDailyNewCases"] = H7_SUS_2_data["PredictedDailyNewCases"].rolling(7).mean()
+            
+            #suma1_H7_SUS["PredictedDailyNewCases"] = suma1_H7_SUS["PredictedDailyNewCases"].diff()
+            fig.add_trace(go.Scatter(x = suma1_H7_SUS_2.index, y = suma1_H7_SUS_2.PredictedDailyNewCases,name = "H7_SUS_1",visible = (country2 == "Europe"),line=dict(color="purple")))
+            
+            overall_H7_SUS_2_data= H7_SUS_2_data.groupby(["Date"])[["PredictedDailyNewCases"]].sum().sort_values(by=["Date"])
+            H7_SUS_2_data = H7_SUS_2_data[H7_SUS_2_data.CountryName == country2]
+            H7_SUS_2_data = H7_SUS_2_data.set_index("Date")
+            new_data["H7_SUS_2"] = H7_SUS_2_data["PredictedDailyNewCases"]
+            new_data = pd.DataFrame(new_data)
+            fig.add_trace(go.Scatter(x = new_data.index, y = new_data.H7_SUS_2,name = "H7_SUS_1",line=dict(color='blue')))
+            fig.add_trace(go.Scatter(x = overall_H7_SUS_2_data.index, y = overall_H7_SUS_2_data.PredictedDailyNewCases,name = "H7_SUS_1",visible = (country2 == "Overall"),line=dict(color='purple')))
+        
+        
+        if H7_SUS_3_bool:
+            overall_H7_SUS_3_data={}
+            H7_SUS_3_data = pd.read_csv("Modelos/predicciones_oscar/robojudge_test_H7_SUS_"
+                                +months_list_short[months_list.index(month)] + ".csv")
+            H7_SUS_3_data['Date'] = pd.to_datetime(H7_SUS_3_data['Date'], format = '%Y-%m-%d')
+            
+            paises_utiles_H7_SUS_3= H7_SUS_3_data[H7_SUS_3_data["CountryName"].isin(list(["Albania","Andorra","Austria","Azerbaijan","Belarus","Belgium","Bosnia and Herzegovina","Bulgaria","Croatia","Cyprus","Czech Republic",
+                    "Denmark","Estonia","Finland","France","Georgia","Germany","Greece","Hungary","Iceland","Ireland","Italy","Kazakhstan","Latvia","Liechtenstein",
+                    "Lithuania","Luxembourg","Malta","Moldova","Monaco","Netherlands","Norway","Poland","Portugal","Romania","San Marino","Serbia","Slovakia","Slovenia",
+                    "Spain","Sweden","Switzerland","Turkey","Ukraine","United Kingdom"]))]
+            
+            if smooth_bool:
+                #[NEW]
+                # Cogemos los datos de la semana anterior al mes que queremos
+                if months_list_short[months_list.index(month)] == "jan":
+                    star_day = "2020-12-24"
+                    star_day = pd.to_datetime(star_day, format = '%Y-%m-%d')
+                    end_day = "2020-12-31"
+                    end_day = pd.to_datetime(end_day, format = '%Y-%m-%d')
+                    data = pd.read_csv("data/OxCGRT_latest.csv")
+                    data['Date'] = pd.to_datetime(data['Date'], format = '%Y%m%d')
+                    semana_anterior = data[(data.Date >= star_day - np.timedelta64(1, 'D')) & (data.Date <= end_day + np.timedelta64(1, 'D'))]
+                    semana_anterior["ConfirmedCases"] = semana_anterior["ConfirmedCases"].diff()
+                    semana_anterior = semana_anterior[(semana_anterior.Date >= star_day) & (semana_anterior.Date <=end_day)]
+                    st.write(semana_anterior)
+                else:            
+                    end_day = "2021-0"+str(months_list.index(month)+1)+"-01" # 2021-0+"mes"+
+                    st.write(end_day)
+                    end_day = pd.to_datetime(end_day, format = '%Y-%m-%d')
+                    star_day = end_day - np.timedelta64(7, 'D')
+                    star_day = pd.to_datetime(star_day, format = '%Y-%m-%d')
+                    data = pd.read_csv("data/OxCGRT_latest.csv")
+                    data['Date'] = pd.to_datetime(data['Date'], format = '%Y%m%d')
+                    semana_anterior = data[(data.Date >= star_day - np.timedelta64(1, 'D')) & (data.Date <= end_day + np.timedelta64(1, 'D'))]
+                    semana_anterior["ConfirmedCases"] = semana_anterior["ConfirmedCases"].diff()
+                    semana_anterior = semana_anterior[(semana_anterior.Date >= star_day) & (semana_anterior.Date <= end_day)]
+                    
+                st.write(star_day)
+                st.write(end_day)
+                    
+                semana_anterior["PredictedDailyNewCases"] = semana_anterior["ConfirmedCases"]
+                # Lo mismo para los datos de la semana anterior[NEW]
+                paises_utiles_semana_anterior = semana_anterior[semana_anterior["CountryName"].isin(list(["Albania","Andorra","Austria","Azerbaijan","Belarus","Belgium","Bosnia and Herzegovina","Bulgaria","Croatia","Cyprus","Czech Republic",
+                        "Denmark","Estonia","Finland","France","Georgia","Germany","Greece","Hungary","Iceland","Ireland","Italy","Kazakhstan","Latvia","Liechtenstein",
+                        "Lithuania","Luxembourg","Malta","Moldova","Monaco","Netherlands","Norway","Poland","Portugal","Romania","San Marino","Serbia","Slovakia","Slovenia",
+                        "Spain","Sweden","Switzerland","Turkey","Ukraine","United Kingdom"]))]
+                paises_utiles_H7_SUS_3 = paises_utiles_H7_SUS_3.append(paises_utiles_semana_anterior) #[NEW]
+            
+            suma1_H7_SUS_3 =paises_utiles_H7_SUS_3[["Date","CountryName","PredictedDailyNewCases"]].fillna(0).groupby("Date").sum()
+            if smooth_bool:
+                # Ahora hacemos la media a 7 dias de los datos de la semana anterior [NEW]
+                suma1_H7_SUS_3["PredictedDailyNewCases"] = suma1_H7_SUS_3["PredictedDailyNewCases"].rolling(7).mean()
+                H7_SUS_3_data["PredictedDailyNewCases"] = H7_SUS_3_data["PredictedDailyNewCases"].rolling(7).mean()
+            #suma1_H7_SUS["PredictedDailyNewCases"] = suma1_H7_SUS["PredictedDailyNewCases"].diff()
+            fig.add_trace(go.Scatter(x = suma1_H7_SUS_3.index, y = suma1_H7_SUS_3.PredictedDailyNewCases,name = "H7_SUS_2",visible = (country2 == "Europe"),line=dict(color='green')))
+            
+            overall_H7_SUS_3_data= H7_SUS_3_data.groupby(["Date"])[["PredictedDailyNewCases"]].sum().sort_values(by=["Date"])
+            H7_SUS_3_data = H7_SUS_3_data[H7_SUS_3_data.CountryName == country2]
+            H7_SUS_3_data = H7_SUS_3_data.set_index("Date")
+            new_data["H7_SUS_3"] = H7_SUS_3_data["PredictedDailyNewCases"]
+            new_data = pd.DataFrame(new_data)
+            fig.add_trace(go.Scatter(x = new_data.index, y = new_data.H7_SUS_3,name = "H7_SUS_2",line=dict(color='green')))
+            fig.add_trace(go.Scatter(x = overall_H7_SUS_3_data.index, y = overall_H7_SUS_3_data.PredictedDailyNewCases,name = "H7_SUS_2",visible = (country2 == "Overall"),line=dict(color='green')))
+        
+        # TODO: ESTOY AQUI   
+        if H7_SUS_4_bool:
+            overall_H7_SUS_4_data={}
+            overall_H7_SUS_4_data2={}
+            H7_SUS_4_data  = pd.read_csv("latest_predictions/h7_waning_casos/H7_waning_casos_"
+                                +months_list_short[months_list.index(month)] + ".csv")
+            H7_SUS_4_data['Date'] = H7_SUS_4_data['fecha']
+            H7_SUS_4_data['PredictedDailyNewCases'] = H7_SUS_4_data['pred']
+            H7_SUS_4_data2 = pd.read_csv("latest_predictions/h7_waning_casos/H7_waning_casos_"
+                                +months_list_short[months_list.index(month)] + ".csv")
+            H7_SUS_4_data2['Date'] = H7_SUS_4_data2['fecha']
+            H7_SUS_4_data2['PredictedDailyNewCases'] = H7_SUS_4_data2['pred']
+            H7_SUS_4_data['Date'] = pd.to_datetime(H7_SUS_4_data['Date'], format = '%Y-%m-%d')
+            H7_SUS_4_data2['Date'] = pd.to_datetime(H7_SUS_4_data2['Date'], format = '%Y-%m-%d')
+            
+            paises_utiles_H7_SUS_4= H7_SUS_4_data[H7_SUS_4_data["CountryName"].isin(list(["Albania","Andorra","Austria","Azerbaijan","Belarus","Belgium","Bosnia and Herzegovina","Bulgaria","Croatia","Cyprus","Czech Republic",
+                    "Denmark","Estonia","Finland","France","Georgia","Germany","Greece","Hungary","Iceland","Ireland","Italy","Kazakhstan","Latvia","Liechtenstein",
+                    "Lithuania","Luxembourg","Malta","Moldova","Monaco","Netherlands","Norway","Poland","Portugal","Romania","San Marino","Serbia","Slovakia","Slovenia",
+                    "Spain","Sweden","Switzerland","Turkey","Ukraine","United Kingdom"]))]
+            
+            if smooth_bool:
+                #[NEW]
+                # Cogemos los datos de la semana anterior al mes que queremos
+                if months_list_short[months_list.index(month)] == "jan":
+                    star_day = "2020-12-24"
+                    star_day = pd.to_datetime(star_day, format = '%Y-%m-%d')
+                    end_day = "2020-12-31"
+                    end_day = pd.to_datetime(end_day, format = '%Y-%m-%d')
+                    data = pd.read_csv("data/OxCGRT_latest.csv")
+                    data['Date'] = pd.to_datetime(data['Date'], format = '%Y%m%d')
+                    semana_anterior = data[(data.Date >= star_day - np.timedelta64(1, 'D')) & (data.Date <= end_day + np.timedelta64(1, 'D'))]
+                    semana_anterior["ConfirmedCases"] = semana_anterior["ConfirmedCases"].diff()
+                    semana_anterior = semana_anterior[(semana_anterior.Date >= star_day) & (semana_anterior.Date <=end_day)]
+                else:            
+                    end_day = "2021-0"+str(months_list.index(month)+1)+"-01" # 2021-0+"mes"+
+                    end_day = pd.to_datetime(end_day, format = '%Y-%m-%d')
+                    star_day = end_day - np.timedelta64(7, 'D')
+                    star_day = pd.to_datetime(star_day, format = '%Y-%m-%d')
+                    data = pd.read_csv("data/OxCGRT_latest.csv")
+                    data['Date'] = pd.to_datetime(data['Date'], format = '%Y%m%d')
+                    semana_anterior = data[(data.Date >= star_day - np.timedelta64(1, 'D')) & (data.Date <= end_day + np.timedelta64(1, 'D'))]
+                    semana_anterior["ConfirmedCases"] = semana_anterior["ConfirmedCases"].diff()
+                    semana_anterior = semana_anterior[(semana_anterior.Date >= star_day) & (semana_anterior.Date <= end_day)]
+                    
+                semana_anterior["PredictedDailyNewCases"] = semana_anterior["ConfirmedCases"]
+                # Lo mismo para los datos de la semana anterior[NEW]
+                paises_utiles_semana_anterior = semana_anterior[semana_anterior["CountryName"].isin(list(["Albania","Andorra","Austria","Azerbaijan","Belarus","Belgium","Bosnia and Herzegovina","Bulgaria","Croatia","Cyprus","Czech Republic",
+                        "Denmark","Estonia","Finland","France","Georgia","Germany","Greece","Hungary","Iceland","Ireland","Italy","Kazakhstan","Latvia","Liechtenstein",
+                        "Lithuania","Luxembourg","Malta","Moldova","Monaco","Netherlands","Norway","Poland","Portugal","Romania","San Marino","Serbia","Slovakia","Slovenia",
+                        "Spain","Sweden","Switzerland","Turkey","Ukraine","United Kingdom"]))]
+
+                paises_utiles_H7_SUS_4 = paises_utiles_H7_SUS_4.append(paises_utiles_semana_anterior) #[NEW]
+            
+            suma1_H7_SUS_4 =paises_utiles_H7_SUS_4[["Date","CountryName","PredictedDailyNewCases"]].fillna(0).groupby("Date").sum()
+            
+            if smooth_bool:
+                # Ahora hacemos la media a 7 dias de los datos de la semana anterior [NEW]
+                suma1_H7_SUS_4["PredictedDailyNewCases"] = suma1_H7_SUS_4["PredictedDailyNewCases"].rolling(7).mean()
+                H7_SUS_4_data["PredictedDailyNewCases"] = H7_SUS_4_data["PredictedDailyNewCases"].rolling(7).mean()
+            #suma1_H7_SUS["PredictedDailyNewCases"] = suma1_H7_SUS["PredictedDailyNewCases"].diff()
+            
+            H7_SUS_4_data = H7_SUS_4_data[H7_SUS_4_data.CountryName!="Laos"]
+
+            fig.add_trace(go.Scatter(x = suma1_H7_SUS_4.index, y = suma1_H7_SUS_4.PredictedDailyNewCases,name = "SVIR model",visible = (country2 == "Europe"),line=dict(color='blue')))
+            
+            
+            overall_H7_SUS_4_data= H7_SUS_4_data.groupby(["Date"])[["PredictedDailyNewCases"]].sum().sort_values(by=["Date"])
+            overall_H7_SUS_4_data2= H7_SUS_4_data2.groupby(["Date"])[["PredictedDailyNewCases"]].sum().sort_values(by=["Date"])
+            H7_SUS_4_data = H7_SUS_4_data[H7_SUS_4_data.CountryName == country2]
+            H7_SUS_4_data = H7_SUS_4_data.set_index("Date")
+            new_data["H7_SUS_4"] = H7_SUS_4_data["PredictedDailyNewCases"]
+            new_data = pd.DataFrame(new_data)
+            H7_SUS_4_data2 = H7_SUS_4_data2[H7_SUS_4_data2.CountryName == country2]
+            H7_SUS_4_data2 = H7_SUS_4_data2.set_index("Date")
+            fig.add_trace(go.Scatter(x = new_data.index, y = new_data.H7_SUS_4,name = "SVIR model",line=dict(color='black')))
+            #fig.add_trace(go.Scatter(x = overall_H7_SUS_4_data2.index, y = overall_H7_SUS_4_data2.PredictedDailyNewCases,name = "SVIR model",visible = (country2 == "Overall"),line=dict(color='red')))
+            #fig.add_trace(go.Scatter(x = overall_H7_SUS_4_data.index, y = overall_H7_SUS_4_data.PredictedDailyNewCases,name = "SVIR model",visible = (country2 == "Overall"),line=dict(color='red')))
+        
+    
+        
+        with cols[1]:
+            new_data = pd.DataFrame(new_data)
+            #overall_data = pd.DataFrame(overall_data)
+            #overall_data = overall_data.set_index("Date")
+            fig.add_trace(go.Scatter(x = overall_data.index, y = overall_data.ConfirmedCases,name = "Ground truth",visible = (country2 == "Overall"),line=dict(color='orange', width=4, dash='dash')))
+            fig.add_trace(go.Scatter(x = suma1.Date, y = suma1.ConfirmedCases,name = "Ground truth",visible = (country2 == "Europe"),line=dict(color='orange', width=4, dash='dash')))
+            fig.add_trace(go.Scatter(x = overall_H7_SUS_4_data.index, y = overall_H7_SUS_4_data.PredictedDailyNewCases,name = "SVIR model",visible = (country2 == "Overall"),line=dict(color='red')))
+            fig.add_trace(go.Scatter(x = suma1.Date, y = suma1.ConfirmedCases,name = "Ground truth europe",visible = (country2 == "Overall"),line=dict(color='blue', width=4, dash='dash')))
+            fig.add_trace(go.Scatter(x = suma1_H7_SUS_4.index, y = suma1_H7_SUS_4.PredictedDailyNewCases,name = "SVIR model europe",visible = (country2 == "Overall"),line=dict(color='green')))
+            fig.add_trace(go.Scatter(x = new_data.index, y = new_data.Ground_truth,name = "Ground truth",line=dict(color='orange', width=4, dash='dash')))
+            #new_data = new_data.set_index("Date")
+            fig.update_layout(
+        margin=dict(l=20, r=20, t=20, b=20))
+            fig.update_layout(plot_bgcolor='rgba(0, 0, 0, 0)',paper_bgcolor='rgba(0, 0, 0, 0)',)
+            fig.update_yaxes(
+                    mirror=True,
+                    ticks='outside',
+                    showline=True,
+                    linecolor='black',
+                    gridcolor='lightgrey'
+                )
+            st.plotly_chart(figure_or_data=fig,use_container_width=True)
     if selected == "Prescriptor": 
         st.markdown("# Prescriptor Models")
         cols = st.columns((2,5))
