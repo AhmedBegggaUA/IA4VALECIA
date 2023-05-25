@@ -378,8 +378,8 @@ try:
         paises = get_UN_data()
         with cols[0]:
             paises_list = list(paises.index.unique())
-            paises_list.insert(0, "Europe")
-            paises_list.insert(0, "Overall")
+            #paises_list.insert(0, "Europe")
+            #paises_list.insert(0, "Overall")
             country2 = st.selectbox(
                 "Choose countries ",paises_list
             )
