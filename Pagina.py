@@ -35,7 +35,12 @@ st.set_page_config(page_title = 'V4C',page_icon='https://ellisalicante.org/asset
 def get_UN_data():
     #paises = pd.read_csv("countries_regions.csv")
     #return paises.set_index("CountryName")
-    paises = pd.read_csv("latest_predictions/h7_waning_casos/H7_waning_casos_2020_12.csv")
+    paises = pd.read_csv("latest_predictions/h7_waning_casos/H7_waning_casos_2021_3.csv")
+    return paises.set_index("CountryName")
+def get_UN_data2():
+    #paises = pd.read_csv("countries_regions.csv")
+    #return paises.set_index("CountryName")
+    paises = pd.read_csv("latest_predictions/h7_all/H7_waning_casos_2021_5.csv")
     return paises.set_index("CountryName")
 @st.cache
 def get_prescriptions_and_stringency():
@@ -376,17 +381,25 @@ try:
 
         cols = st.columns((.2,1))
         paises = get_UN_data()
+        paises2 = get_UN_data2()
         with cols[0]:
-            paises_list = list(paises.index.unique())
-            #paises_list.insert(0, "Europe")
-            #paises_list.insert(0, "Overall")
-            country2 = st.selectbox(
-                "Choose countries ",paises_list
-            )
-            modes = ["H7","H7 VacW","None","None VacW"]
+            modes = ["H7","H7 VacW","None","None VacW","XPRIZE"]
             mode = st.selectbox(
                 "Select a model ",modes
             )
+            paises_list = list(paises.index.unique())
+            paises_list2 = list(paises2.index.unique())
+            #paises_list.insert(0, "Europe")
+            #paises_list.insert(0, "Overall")
+            if mode == "H7 VacW" or "None VacW":
+                country2 = st.selectbox(
+                    "Choose countries ",paises_list
+                )
+            else:
+                country2 = st.selectbox(
+                    "Choose countries ",paises_list2
+                )
+            
             
             months_list = ["January","February","March","April","May","June","July","Agost","September","October","November","December"]
             months_dates = ["2020-12-28","2021-01-31","2021-01-31","2021-02-28","2021-02-28","2021-03-31","2021-03-31","2021-04-30",
@@ -405,7 +418,9 @@ try:
             elif mode == "H7 VacW":
                 data = pd.read_csv("latest_predictions/h7_waning_casos_vacunas/H7_waning_casos_vacunas_"+month+".csv")
                 # Filter by the country
+                
                 data = data[data.CountryName == country2].reset_index(drop=True)
+                
                 # Group by date  
                 data = data.groupby("fecha").mean().reset_index()
             elif mode == "None":
@@ -416,6 +431,12 @@ try:
                 data = data.groupby("fecha").mean().reset_index()
             elif mode == "None VacW":
                 data = pd.read_csv("latest_predictions/None_waning_casos_vacunas/None_waning_casos_vacunas_"+month+".csv")
+                # Filter by the country
+                data = data[data.CountryName == country2].reset_index(drop=True)
+                # Group by date  
+                data = data.groupby("fecha").mean().reset_index()
+            elif mode == "XPRIZE":
+                data = pd.read_csv("latest_predictions/xprize_all/NONE_xprice_"+month+".csv")
                 # Filter by the country
                 data = data[data.CountryName == country2].reset_index(drop=True)
                 # Group by date  
