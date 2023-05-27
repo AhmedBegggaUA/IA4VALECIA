@@ -399,7 +399,6 @@ try:
                 country2 = st.selectbox(
                     "Choose countries ",paises_list2
                 )
-            st.write(country2)
             
             months_list = ["January","February","March","April","May","June","July","Agost","September","October","November","December"]
             months_dates = ["2020-12-28","2021-01-31","2021-01-31","2021-02-28","2021-02-28","2021-03-31","2021-03-31","2021-04-30",
