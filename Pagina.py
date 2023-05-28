@@ -407,14 +407,14 @@ try:
             # TODO: Estoy aqui
             month = st.selectbox('Choose a month   ', months_list)
             month = months_list_short[months_list.index(month)]
-            if mode == "H7":
+            if mode == "H7" and (country2 in paises_list):
                 # Let's read the file with the predictions
                 data = pd.read_csv("latest_predictions/h7_waning_casos/H7_waning_casos_"+month+".csv")
                 # Filter by the country
                 data = data[data.CountryName == country2].reset_index(drop=True)
                 # Group by date  
                 data = data.groupby("fecha").mean().reset_index()
-            elif mode == "H7 VacW":
+            elif mode == "H7 VacW"  and (country2 in paises_list):
                 data = pd.read_csv("latest_predictions/h7_waning_casos_vacunas/H7_waning_casos_vacunas_"+month+".csv")
                 # Filter by the country
                 
@@ -422,13 +422,13 @@ try:
                 
                 # Group by date  
                 data = data.groupby("fecha").mean().reset_index()
-            elif mode == "None":
+            elif mode == "None" and (country2 in paises_list):
                 data = pd.read_csv("latest_predictions/None_waning_casos/None_waning_casos_"+month+".csv")
                 # Filter by the country
                 data = data[data.CountryName == country2].reset_index(drop=True)
                 # Group by date  
                 data = data.groupby("fecha").mean().reset_index()
-            elif mode == "None VacW":
+            elif mode == "None VacW" and (country2 in paises_list):
                 data = pd.read_csv("latest_predictions/None_waning_casos_vacunas/None_waning_casos_vacunas_"+month+".csv")
                 # Filter by the country
                 data = data[data.CountryName == country2].reset_index(drop=True)
@@ -436,6 +436,18 @@ try:
                 data = data.groupby("fecha").mean().reset_index()
             elif mode == "XPRIZE":
                 data = pd.read_csv("latest_predictions/xprize_all/NONE_xprice_"+month+".csv")
+                # Filter by the country
+                data = data[data.CountryName == country2].reset_index(drop=True)
+                # Group by date  
+                data = data.groupby("fecha").mean().reset_index()
+            elif mode == "H7" and (country2 in paises_list2):
+                data = pd.read_csv("latest_predictions/h7_all/H7_waning_casos_"+month+".csv")
+                # Filter by the country
+                data = data[data.CountryName == country2].reset_index(drop=True)
+                # Group by date  
+                data = data.groupby("fecha").mean().reset_index()
+            elif mode == None and (country2 in paises_list2):
+                data = pd.read_csv("latest_predictions/h7_all/NONE_waning_casos_"+month+".csv")
                 # Filter by the country
                 data = data[data.CountryName == country2].reset_index(drop=True)
                 # Group by date  
