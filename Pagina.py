@@ -391,7 +391,11 @@ try:
             paises_list2 = list(paises2.index.unique())
             #paises_list.insert(0, "Europe")
             #paises_list.insert(0, "Overall")
-            if mode == "H7 VacW" or "None VacW":
+            if mode == "H7 VacW":
+                country2 = st.selectbox(
+                    "Choose countries ",paises_list
+                )
+            elif mode == "None VacW":
                 country2 = st.selectbox(
                     "Choose countries ",paises_list
                 )
