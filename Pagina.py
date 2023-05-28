@@ -479,10 +479,13 @@ try:
                 # Plot the ground truth in orange and dashed
                 fig.add_trace(go.Scatter(x=data['fecha'], y=data['truth'], mode='lines', name='Ground truth',line=dict(color='orange', width=4,dash='dash')))
                 # Plot the predictions in blue and solid
-                fig.add_trace(go.Scatter(x=data['fecha'], y=data['pred'], mode='lines', name='Predictions SVIR',line=dict(color='blue', width=2)))
-                # Plot the predictions in blue and solid
                 if mode != "Death predictor":
+                    fig.add_trace(go.Scatter(x=data['fecha'], y=data['pred'], mode='lines', name='Predictions SVIR',line=dict(color='blue', width=2)))
+                    # Plot the predictions in blue and solid
+                
                     fig.add_trace(go.Scatter(x=data['fecha'], y=data['pred_sir'], mode='lines', name='Predictions SIR',line=dict(color='green', width=2)))
+                else:
+                    fig.add_trace(go.Scatter(x=data['fecha'], y=data['pred'], mode='lines', name='Predicted Deaths',line=dict(color='blue', width=2)))
                 fig.update_layout(
                 margin=dict(l=20, r=20, t=20, b=20))
                 fig.update_layout(plot_bgcolor='rgba(0, 0, 0, 0)',paper_bgcolor='rgba(0, 0, 0, 0)',)
