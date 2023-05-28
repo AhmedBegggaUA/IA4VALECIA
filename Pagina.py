@@ -469,6 +469,7 @@ try:
                 data = data.groupby("fecha").mean().reset_index()
                 # Rename the columns
                 data = data.rename(columns={"SmoothNewDeaths":"pred"})
+                data['truth'] = int(data['truth'])
                 # Rename the Date by fecha
                 
             # Now we plot the data
