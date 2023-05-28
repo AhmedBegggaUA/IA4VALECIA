@@ -383,12 +383,16 @@ try:
         paises = get_UN_data()
         paises2 = get_UN_data2()
         with cols[0]:
-            modes = ["H7","H7 VacW","None","None VacW","XPRIZE"]
+            modes = ["H7","H7 VacW","None","None VacW","XPRIZE","Death predictor"]
             mode = st.selectbox(
                 "Select a model ",modes
             )
             paises_list = list(paises.index.unique())
+            # Sort the list
+            paies_list = sorted(paises_list)
             paises_list2 = list(paises2.index.unique())
+            # Sort the list
+            paies_list2 = sorted(paises_list2)
             #paises_list.insert(0, "Europe")
             #paises_list.insert(0, "Overall")
             if mode == "H7 VacW":
@@ -456,6 +460,14 @@ try:
                 data = data[data.CountryName == country2].reset_index(drop=True)
                 # Group by date  
                 data = data.groupby("fecha").mean().reset_index()
+            elif mode == "Death predictor":
+                data = pd.read_csv("muertes_predicciones/"+month+".csv")
+                # Filter by the country
+                data = data[data.CountryName == country2].reset_index(drop=True)
+                # Group by date
+                data = data.groupby("fecha").mean().reset_index()
+                # Rename the columns
+                data = data.rename(columns={"SmoothNewDeaths":"pred"})
             # Now we plot the data
             with cols[1]:
                 fig = go.Figure()
@@ -464,7 +476,8 @@ try:
                 # Plot the predictions in blue and solid
                 fig.add_trace(go.Scatter(x=data['fecha'], y=data['pred'], mode='lines', name='Predictions SVIR',line=dict(color='blue', width=2)))
                 # Plot the predictions in blue and solid
-                fig.add_trace(go.Scatter(x=data['fecha'], y=data['pred_sir'], mode='lines', name='Predictions SIR',line=dict(color='green', width=2)))
+                if mode != "Death predictor":
+                    fig.add_trace(go.Scatter(x=data['fecha'], y=data['pred_sir'], mode='lines', name='Predictions SIR',line=dict(color='green', width=2)))
                 fig.update_layout(
                 margin=dict(l=20, r=20, t=20, b=20))
                 fig.update_layout(plot_bgcolor='rgba(0, 0, 0, 0)',paper_bgcolor='rgba(0, 0, 0, 0)',)
