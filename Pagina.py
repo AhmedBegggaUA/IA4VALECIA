@@ -465,11 +465,12 @@ try:
                 # Filter by the country
                 data = data[data.CountryName == country2].reset_index(drop=True)
                 # Group by date
+                data = data.rename(columns={"Date":"fecha"})
                 data = data.groupby("fecha").mean().reset_index()
                 # Rename the columns
                 data = data.rename(columns={"SmoothNewDeaths":"pred"})
                 # Rename the Date by fecha
-                data = data.rename(columns={"Date":"fecha"})
+                
             # Now we plot the data
             with cols[1]:
                 fig = go.Figure()
