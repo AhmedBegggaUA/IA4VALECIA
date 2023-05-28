@@ -462,8 +462,10 @@ try:
                 data = data.groupby("fecha").mean().reset_index()
             elif mode == "Death predictor":
                 data = pd.read_csv("muertes_predicciones/"+month+".csv")
+                st.write(data)
                 # Filter by the country
                 data = data[data.CountryName == country2].reset_index(drop=True)
+                st.write(data)
                 # Group by date
                 data = data.rename(columns={"Date":"fecha"})
                 data = data.groupby("fecha").mean().reset_index()
