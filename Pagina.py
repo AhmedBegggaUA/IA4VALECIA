@@ -468,7 +468,7 @@ try:
                 data = data.groupby("fecha").mean().reset_index()
                 # Rename the columns
                 data = data.rename(columns={"SmoothNewDeaths":"pred"})
-                # Rename the columns
+                # Rename the Date by fecha
                 data = data.rename(columns={"Date":"fecha"})
             # Now we plot the data
             with cols[1]:
