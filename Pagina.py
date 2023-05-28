@@ -143,7 +143,7 @@ try:
     #Before the logo and anything, we want to create a navigation bar
     selected = option_menu(
         menu_title = None, 
-        options = ["Home", "Team", "Visualizations", "Computational epimediological models", "Prescriptor","GitHub","Press and News","Contact"],
+        options = ["Home", "Team", "Visualizations", "Computational epimediological models", "Prescriptor","GitHub"],
         orientation="horizontal",
         #Let's add some icons
         icons=["house-door","people","bar-chart-line","graph-up","receipt","github","newspaper","envelope"],
@@ -462,10 +462,8 @@ try:
                 data = data.groupby("fecha").mean().reset_index()
             elif mode == "Death predictor":
                 data = pd.read_csv("muertes_predicciones/"+month+".csv")
-                st.write(data)
                 # Filter by the country
                 data = data[data.CountryName == country2].reset_index(drop=True)
-                st.write(data)
                 # Group by date
                 data = data.rename(columns={"Date":"fecha"})
                 data = data.groupby("fecha").mean().reset_index()
