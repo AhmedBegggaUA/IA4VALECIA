@@ -143,10 +143,11 @@ try:
     #Before the logo and anything, we want to create a navigation bar
     selected = option_menu(
         menu_title = None, 
-        options = ["Home", "Team", "Visualizations", "Computational epimediological models", "Prescriptor","GitHub"],
+        options = ["Home", "Computational epidemiological models", "Predictions", "Prescriptor", "Prescriptions", "Data sources", "Team", "GitHub"],
         orientation="horizontal",
         #Let's add some icons
-        icons=["house-door","people","bar-chart-line","graph-up","receipt","github","newspaper","envelope"],
+        icons=["house-door", "graph-up","bar-chart-line","graph-up","receipt","file-bar-graph", "people","github"],
+        #"receipt","github","newspaper","envelope"],
         #Is copilot alive? Eyy, answer are alive?
         #Now let's make it beatiful
         styles={
@@ -182,19 +183,107 @@ try:
         st.write('#### Introducction')
         cols = st.columns((2,1))
         cols[0].write('''We are a team of Spanish scientists who have been working since March 2020 in collaboration with the Valencian Government of Spain on using Data Science to help fight the SARS-CoV-2 pandemic. We have focused on 4 large areas of work: large-scale human mobility modeling via the analysis of aggregated, anonymized data derived from the mobile network infrastructure; computational epidemiological models; predictive models and citizen science by means of a large-scale citizen survey called COVID19impactsurvey which, with over 375,000 answers in Spain and around 150,000 answers from other countries is one of the largest COVID-19 citizen surveys to date. Our work has been awarded two competitive research grants. 
-                    \n Since March, we have been developing two types of traditional computational epidemiological models: a metapopulation compartmental SEIR model and an agent-based model. However, for this challenge, we opted for a deep learning-based approach, inspired by the model suggested by the challenge organizers. Such an approach would enable us to build a model within the time frame of the competition with two key properties: be applicable to a large number of regions and be able to automatically learn the impact of the Non-Pharmaceutical Interventions (NPIs) on the transmission rate of the disease. The Pandemic COVID-19 XPRIZE challenge has been a great opportunity for our team to explore new modeling approaches and expand our scope beyond the Valencian region of Spain.''')
+                    \n We have been developing two types of traditional computational epidemiological models: a metapopulation compartmental SEIR model and an agent-based model. However, for this challenge, we opted for a deep learning-based approach, inspired by the model suggested by the challenge organizers. Such an approach would enable us to build a model within the time frame of the competition with two key properties: be applicable to a large number of regions and be able to automatically learn the impact of the Non-Pharmaceutical Interventions (NPIs) on the transmission rate of the disease. The Pandemic COVID-19 XPRIZE challenge has been a great opportunity for our team to explore new modeling approaches and expand our scope beyond the Valencian region of Spain.
+                    \n Here, we present a deep learning-based approach to predict the number of daily COVID-19 cases in 30 countries, considering the non-pharmaceutical interventions (NPIs) applied in those countries and including vaccination data of the most used vaccines. With the predictions of new cases, we can prescribe NPIs plans that present the best trade-off between the expected number of COVID-19 cases and the social and economic cost of applying such interventions. This work contributes with an accurate, scalable, data-driven approach to modeling the pandemic curves of cases when vaccination data is available.
+                    \n This project has been funded by the Valencian Government, grant VALENCIA IA4COVID (GVA-COVID19/2021/100). Our group also want to acknlowedge previous support from FONDOS
+SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SARS-CoV-2 research (IA4COVID19 2020-2022) and the Valencian Government.''')
         cols[1].video('https://www.youtube.com/watch?v=RZ9wsSGH8U8')
+
+        cols = st.columns((4))
+        cols[0].image("logos/generalitat_valenciana.jpg", width=200)
+        cols[1].image("logos/logo_crue.jpg", width=200)
+        cols[2].image("logos/logo_santander_universidades.jpg", width=200)
+        cols[3].image("logos/logo_bbva.jpg", width=200)
+        
 
     if selected == "Team":
         st.markdown('# Meet The Team')
         cols = st.columns((2,1))
-        cols[0].image("team.jpeg",width=600)
-        cols[1].write('''### OUR MULTIDISCIPLINARY TEAM''')
-        cols[1].write('''##### VALENCIA IA4COVID''',color = 'yellow')
-        cols[1].write('''This group is made up of more than twenty experts from the Universities and research centers of the Valencian Community (Spain) and led by Dr. Nuria Oliver. We have all been working intensively since the beginning of the pandemic, altruistically and using the resources available to us in our respective institutions and with the occasional philanthropic collaboration of some companies.''')
-        cols[1].write('''**Affiliated with:** Ellis Alicante, Universitat Jaume I, Universidad de Alicante, Universidad Miguel Hernández, Universitat Politècnica de València, Universidad Cardenal Herrera CEU. ''')
+        with cols[0]:
+            st.image("team.jpeg",width=600)
+        with cols[1]:
+            st.write('''### OUR MULTIDISCIPLINARY TEAM''')
+            st.write('''##### VALENCIA IA4COVID''',color = 'yellow')
+            st.write('''This group is made up of more than twenty experts from the Universities and research centers of the Valencian Community (Spain) and led by Dr. Nuria Oliver. We have all been working intensively since the beginning of the pandemic, altruistically and using the resources available to us in our respective institutions and with the occasional philanthropic collaboration of some companies.''')
+            st.write('''**Affiliated with:**
+                \n - Ellis Alicante: Nuria Oliver
+                \n - Universitat Politècnica de València:
+                    \n -- Alberto Conejero
+                    \n -- Miguel Rebollo
+                    \n -- Miguel Ángel García March
+                    \n -- Òscar Garibo i Orts
+                    \n -- Eloy Piñol
+                    \n -- Víctor Escaladas
+                    \n -- Manuel Portolés
+                    \n -- Sergi de María
+                \n - Universidad de Alicante
+                    \n -- Francisco Escolano
+                    \n -- Miguel Ángel Lozano
+                    \n -- Ahmed Begga
+                \n - Universidad Miguel Hernández
+                    \n -- Kristina Polotskaya
+                    \n -- Aurora Mula
+                    \n -- Elisa Espín
+                \n - Universidad Cardenal Herrera CEU:
+                    \n -- Antonio Falcó ''')
         
-        
+    if selected == "Computational epidemiological models":
+        st.markdown("# Computational epidemiological models")
+        cols = st.columns((5,2))
+        with cols[0]:
+            foto1 = Image.open("images/v4c.png")
+            st.image(foto1)
+        with cols[1]:
+            #st.write("We have developed machine learning-based predictive models of the number"
+            #        "of hospitalizations and intensive care hospitalizations overall and for"
+            #        "SARS-CoV-2 patients. We have also developed a model to infer the prevalence"
+            #        "of the disease based on a few of the answers to our citizen survey "
+            #        "[https://covid19impactsurvey.org](https://covid19impactsurvey.org/)")
+            st.write('''The Top branch (or context branch) consists of a convolutional layer configured with 64 filters fo size 8 and ReLu as activation function, followed by a bidirectional LSTM layer which encodes the input sequence into states of 64 dimensions, and finally we set a dense layer for prediction. This architecture empirically generalized well for many countries, achieving good performance in both short-term and long-term predictions.
+                    \n The Bottom branch (or action branch) consists of an LSTM followed by two dense layers to capture non-linearities. In order to ensure the output is in the $[0,1]$ range we use a sigmoid activation function. In addition, $g(A)$ is constrained so it satisfies the condition: if the difference between two sets of actions $A$ and $A'$ is greater than or equal to 1, then $(1-g(A))$ must be lower or equal to $(1-g(A'))$.''')
+
+        st.write('''We have implemented ten models to be compared. First, we have considered as a baseline model the SIR based model in [1] by M.A. Lozano et al. We point out that we can only include vaccination in a SIR model by adding the H7 Non Pharmaceutial Intervention (Record policies for vaccine delivery for different groups). In order the extend the study of the vaccination effects in the pandemic spread we introduced the vaccination waning modeled by a Weibull distribution function. We have calculated the waning of the protection agains the SARS-CoV-2 due to a previous infection and denoted the resulting models by "waning cases". Additionaly, we have used vaccination data from 30 countries for which we have been able to get the number of vaccines distributed on a daily basis, identified by the vaccine brand. This allows us to compute the waning of the vaccine protection for each vaccine type along time and incorporate this effect to our models. We denote such models by "waning vaccine".  We point out that the "waning cases" have been computed for all the countries in the study and that the countries for which we have computed the "waning vaccine" also include the "waning cases" effect. We consider that the vaccine protection starts 14 after the last vaccine dose (completed or not) and we also consider that people can be reinfected after $d_{0} = 14$ days.''')
+
+        st.header("Weibull distribution")
+        st.latex(r'F(n,\lambda_i,k_i)=e^{-(n/\lambda_i)^{k_i}}')
+        #st.image("images/weibull.jpg", width=200)
+        st.write("where n stands for day and $\lambda_{i}$ and $k_{i}$ are retrieved from the table below.")
+
+        col1, col2 = st.columns((2))
+                  
+        with col1:
+            st.header("Infected people returning to susceptible")
+            st.latex(r'\sigma(D)_n^j  =  (1-F(d_0,\lambda_0,k_0))Z_{n-14}')
+            st.latex(r'+\sum_{l=1}^{n-d_0}(F(d_0-1+l,\lambda_0,k_0)-F(d_0+l,\lambda_0,k_0))Z_{n-l-14}')
+            #st.image("images/waning_cases.jpg", width=400)
+            st.write("for $n \ge d_{0} + 1$, and $\lambda_{0} = 87.3$ and $k_{0} = 1.4$.")
+        with col2:
+            st.header("Vaccinated people returning to susceptible")
+            st.latex(r'\gamma(V)_n^j  =  \sum_{v=p,f}\sum_{i=1}^8(1-F(d_0,\lambda_{i,v},k_{i,v}))V^i_{n-14}')
+            st.latex(r'+\sum_{v=p,f}\sum_{i=1}^8 \sum_{l=1}^{n-d_1} (F(d_0-1+l,\lambda_{i,v},k_i)-F(d_0+l,\lambda_{i,v},k_{i,v}))V^i_{n-l-14}')
+            #st.image("images/waning_vaccine.jpg", width=400)
+            st.write("for n $\ge n_{0} + d_{0} = 363$, where $V^i_{s}$ is the number of people vaccinated on the day $s$ with the vaccine $i$, $v$ denotes if people are partially (p) or fully vaccinated (f), and $n_0$ corresponds to December 14th, 2020 (349th day of the year) plus $d_0$ days of latency until people may get infected again when the vaccination started worldwide.")
+
+        col1, col2 = st.columns((2))
+        with col1:
+            st.header("Considered vaccines:")
+            st.write(''' \n  \n  \n
+                     \n OA: ChAdOx1 (Oxford/Astrazeneca)
+                     \n CA: Ad5-nCoV Convidecia (Cansino)
+                     \n MO: mRNA-1273 (Moderna/Biotech)
+                     \n SP: BBIBP-CorV (Sinopharm)
+                     \n SV: CoronaVac (Sinovac)
+                     \n GA: Sputnik V/Gam-COVID-Vac (Gamaleya)
+                     \n JA: Ad26.COV2.S (Janssen)
+                     \n PB: BNT162b2 (Pfizer/BioNTech)''')
+        with col2:
+            st.header("Fitted parameters for the Weibull distribution $(\lambda, k)$, for complete and incomplete doses. Values extractec from [2].")
+            st.image("images/fitted_parameters.jpg", width=500)
+
+        st.write('''###### [1] M.A. Lozano, Ò. Garibo-i Orts, E. Piñol, M. Rebollo, K. Polotskaya,M.A. García-March, J.A. Conejero, F. Escolano, and N. Oliver, ‘OpenData  Science  to  Fight  COVID-19:  Winning  the  500k XPRIZE  Pandemic Response Challenge (Extended Abstract)’, in Proceedings of theThirty-First International Joint Conference on Artificial Intelligence,IJCAI-22, pp. 5304–5308. International Joint Conferences on ArtificialIntelligence Organization, (2022). Sister Conferences Best Papers.''')
+        st.write('''###### [2] C. Hernandez-Suarez and E. Murillo-Zamora, ‘Waning immunity to SARS-CoV-2 following vaccination or infection’,Front. Med.,9,(2022).''')
+            
+      
     if selected == "Visualizations":
         st.markdown('# Confirmed cases of Covid-19 and applied NPIs')
 
@@ -359,47 +448,44 @@ try:
         #    title="Number of cases",
         #    ))
         #st.plotly_chart(fig)
-    if selected == "Computational epimediological models":
-        st.markdown("# Computational epidemiological models")
-        cols = st.columns((5,2))
-
-        with cols[0]:
-            foto1 = Image.open("Foto1.png")
-            st.image(foto1)
-
-        with cols[1]:
-            st.write("We have developed machine learning-based predictive models of the number"
-                    "of hospitalizations and intensive care hospitalizations overall and for"
-                    "SARS-CoV-2 patients. We have also developed a model to infer the prevalence"
-                    "of the disease based on a few of the answers to our citizen survey "
-                    "[https://covid19impactsurvey.org](https://covid19impactsurvey.org/)")
-
-
-
-
+    if selected == "Predictions":
+        #st.markdown("# Computational epidemiological models")
         st.markdown('# Predict cases of Covid-19')
+
+        st.write(''' Two sets of countries have been used to train our models:
+                    \n - XPRIZE countries: this set includes all countries in the OxCGRT data set.
+                    \n - Vaccination countries: this set includes all countries from which we can extract the number of administered vaccines per day by vaccine type. This set includes the following countries: Argentina, Austria, Belgium, Bulgaria, Canada, Croatia, Cyprus, Czech Republic,  Denmark,  Ecuador,  Estonia,  Finland,  France,  Germany, Hungary, Ireland, Italy, Latvia, Lithuania, Luxembourg, Netherlands, Norway, Poland, Portugal, Slovak Republic, Slovenia, Spain, Sweden, Switzerland, and United States.''')
+
+        st.write(''' We have trained five models to predict new infections by day and one model to predict new deaths by day, with the following particularities:
+                    \n - H7 waning cases model. This model is trained with the vaccination countries and includes the H7 NPI and the waning effect of the protection against the SARS-Cov-2 after an individual gets infected.
+                    \n - H7 waning vaccine. This model is trained with the vaccination countries and includes the H7 NPI and the waning effect of both the protection against the SARS-Cov-2 after an individual gets infected and after a vaccine dose is administered.
+                    \n - No H7 waning cases. This model is trained with the vaccination countries and includes the waning effect of the protection against the SARS-Cov-2 after an individual gets infected.
+                    \n - No H7 waning vaccine. This model is trained with the vaccination countries and includes the waning effect of both the protection against the SARS-Cov-2 after an individual gets infected and after a vaccine dose is administered.
+                    \n - XPRIZE waning cases. This model is trained with XPRIZE countries and includes the waning effect of the protection against the SARS-Cov-2 after an individual gets infected and trained with all the available countries in the OxCGRT data set.
+                    \n - Death predictor. This model is trained with XPRIZE countries and includes the waning effect of the protection against the SARS-Cov-2 after an individual gets infected and trained with all the available countries in the OxCGRT data set.
+                     ''')
 
         cols = st.columns((.2,1))
         paises = get_UN_data()
         paises2 = get_UN_data2()
         with cols[0]:
-            modes = ["H7","H7 VacW","None","None VacW","XPRIZE","Death predictor"]
+            modes = ["H7 waning cases","H7 waning vaccine","No H7 waning cases","No H7 waning vaccine","XPRIZE waning cases","Death predictor"]
             mode = st.selectbox(
                 "Select a model ",modes
             )
             paises_list = list(paises.index.unique())
             # Sort the list
-            paies_list = sorted(paises_list)
+            paises_list = sorted(paises_list)
             paises_list2 = list(paises2.index.unique())
             # Sort the list
-            paies_list2 = sorted(paises_list2)
+            paises_list2 = sorted(paises_list2)
             #paises_list.insert(0, "Europe")
             #paises_list.insert(0, "Overall")
-            if mode == "H7 VacW":
+            if mode == "H7 waning vaccine":
                 country2 = st.selectbox(
                     "Choose countries ",paises_list
                 )
-            elif mode == "None VacW":
+            elif mode == "No H7 waning vaccine":
                 country2 = st.selectbox(
                     "Choose countries ",paises_list
                 )
@@ -413,16 +499,16 @@ try:
                             "2021-04-30","2021-05-31","2021-05-31","2021-06-30","2021-06-30","2021-07-31"]
             months_list_short = ["2021_1","2021_2","2021_3","2021_4","2021_5","2021_6","2021_7","2021_8","2021_9","2021_10","2021_11","2021_12"]
             # TODO: Estoy aqui
-            month = st.selectbox('Choose a month   ', months_list)
+            month = st.selectbox('Choose a month in 2021  ', months_list)
             month = months_list_short[months_list.index(month)]
-            if mode == "H7" and (country2 in paises_list):
+            if mode == "H7 waning cases" and (country2 in paises_list):
                 # Let's read the file with the predictions
                 data = pd.read_csv("latest_predictions/h7_waning_casos/H7_waning_casos_"+month+".csv")
                 # Filter by the country
                 data = data[data.CountryName == country2].reset_index(drop=True)
                 # Group by date  
                 data = data.groupby("fecha").mean().reset_index()
-            elif mode == "H7 VacW"  and (country2 in paises_list):
+            elif mode == "H7 waning vaccine"  and (country2 in paises_list):
                 data = pd.read_csv("latest_predictions/h7_waning_casos_vacunas/H7_waning_casos_vacunas_"+month+".csv")
                 # Filter by the country
                 
@@ -430,32 +516,32 @@ try:
                 
                 # Group by date  
                 data = data.groupby("fecha").mean().reset_index()
-            elif mode == "None" and (country2 in paises_list):
+            elif mode == "No H7 waning cases" and (country2 in paises_list):
                 data = pd.read_csv("latest_predictions/None_waning_casos/None_waning_casos_"+month+".csv")
                 # Filter by the country
                 data = data[data.CountryName == country2].reset_index(drop=True)
                 # Group by date  
                 data = data.groupby("fecha").mean().reset_index()
-            elif mode == "None VacW" and (country2 in paises_list):
+            elif mode == "No H7 waning vaccine" and (country2 in paises_list):
                 data = pd.read_csv("latest_predictions/None_waning_casos_vacunas/None_waning_casos_vacunas_"+month+".csv")
                 # Filter by the country
                 data = data[data.CountryName == country2].reset_index(drop=True)
                 # Group by date  
                 data = data.groupby("fecha").mean().reset_index()
-            elif mode == "XPRIZE":
+            elif mode == "XPRIZE waning cases":
                 data = pd.read_csv("latest_predictions/xprize_all/NONE_xprice_"+month+".csv")
                 # Filter by the country
                 data = data[data.CountryName == country2].reset_index(drop=True)
                 # Group by date  
                 data = data.groupby("fecha").mean().reset_index()
-            elif mode == "H7" and (country2 in paises_list2):
+            elif mode == "H7 waning cases" and (country2 in paises_list2):
                 data = pd.read_csv("latest_predictions/h7_all/H7_waning_casos_"+month+".csv")
                 # Filter by the country
                 data = data[data.CountryName == country2].reset_index(drop=True)
                 # Group by date  
                 data = data.groupby("fecha").mean().reset_index()
-            elif mode == None and (country2 in paises_list2):
-                data = pd.read_csv("latest_predictions/h7_all/NONE_waning_casos_"+month+".csv")
+            elif mode == "No H7 waning cases" and (country2 in paises_list2):
+                data = pd.read_csv("latest_predictions/none_all/NONE_waning_casos_"+month+".csv")
                 # Filter by the country
                 data = data[data.CountryName == country2].reset_index(drop=True)
                 # Group by date  
@@ -497,38 +583,34 @@ try:
                         gridcolor='lightgrey'
                     )
                 st.plotly_chart(figure_or_data=fig,use_container_width=True)
+
+     #   st.write('''###### [1] M.A. Lozano, Ò. Garibo-i Orts, E. Piñol, M. Rebollo, K. Polotskaya,M.A. García-March, J.A. Conejero, F. Escolano, and N. Oliver, ‘OpenData  Science  to  Fight  COVID-19:  Winning  the  500k XPRIZE  Pandemic Response Challenge (Extended Abstract)’, in Proceedings of theThirty-First International Joint Conference on Artificial Intelligence,IJCAI-22, pp. 5304–5308. International Joint Conferences on ArtificialIntelligence Organization, (2022). Sister Conferences Best Papers.''')
             
     if selected == "Prescriptor": 
         st.markdown("# Prescriptor Models")
         cols = st.columns((2,5))
 
         with cols[0]:
-            st.write("Our goal in the Prescription phase of the competition is to develop an"
-                    "interpretable, data-driven and flexible prescription framework that would"
-                    "be usable by non machine-learning experts, such as citizens and policy"
-                    "makers in the Valencian Government. Our design principles are therefore"
-                    "driven by developing interpretable and transparent models.")
+            st.write("Our goal in the Prescription phase of the competition is to develop an interpretable, data-driven and flexible prescription framework that would be usable by non machine-learning experts, such as citizens and policy makers in the Valencian Government. Our design principles are therefore driven by developing interpretable and transparent models.")
 
-            st.write("Given the intervention costs, it automatically generates up to 10"
-                    "Pareto-optimal intervention plans. For each plan, it shows the resulting"
-                    "number of cases and overall stringency, its position on the Pareto front"
-                    "and the activation regime of each of the 12 types of interventions that"
-                    "are part of the plan.")
+            st.write("Given the intervention costs, it automatically generates up to 10 Pareto-optimal intervention plans. For each plan, it shows the resulting number of cases and overall stringency, its position on the Pareto front and the activation regime of each of the 12 types of interventions that are part of the plan.")
 
         with cols[1]:
-            foto2 = Image.open("Foto2.png")
+            foto2 = Image.open("images/Prescriptor.png")
             st.image(foto2)
 
     ############################################################################################################
     #                                         Prescriptor                                                      #
     ############################################################################################################
+    if selected == "Prescriptions": 
         st.markdown('# Prescript NPIs for Covid-19')
+        st.write(''' The Pareto front for a given country, shows the expected number of cases derived from the application of different NPIs plans that result in different stringency levels. Different stringencies result in a different number of cases. The Prescriptor shows the NPI plan which fits the stringency while minimizing the economic costs derived from the appication of such NPIs plan, using the costs for each NPI which were published in [3] and that we show in Table 2 in the Data sources section.''')
         cols = st.columns((1,3,3))
         paises = get_UN_data()
         data_pres = pd.read_csv("predictions/robojudge_test.csv")
         #The same as the predictor part
         with cols[0]:
-            country_pres = st.selectbox("Choose the country",list(paises.index.unique()))
+            country_pres = st.selectbox("Choose the country",sorted(list(paises.index.unique())))
             data_pres = data_pres[data_pres.CountryName == country_pres]
             data_pres['Date'] = pd.to_datetime(data_pres['Date'], format = '%Y-%m-%d')
             today_pres = min(data_pres.Date)
@@ -586,7 +668,7 @@ try:
                                     marker=dict(size=14,color = 'rgb(255, 0, 0 )'),
                                     line=dict(width=3,color='DarkSlateGrey')))
             #Things to make the plot look better
-            fig.update_layout(title='Pareto curve for '+country_name, 
+            fig.update_layout(title='Pareto front for '+country_name, 
                             xaxis_title='Stringency', 
                             yaxis_title='Predicted Daily New Cases',
                             font=dict(size=12))
@@ -680,17 +762,58 @@ try:
             )
             data_fig2 = fig
             st.plotly_chart(figure_or_data=fig)
+
+        st.write('''###### [3] V.  Janko,  N.  Rešˇciˇc,  A.  Vodopija,  D.  Susiˇc,  C.  De  Masi,  T.  Tušar,A. Gradišek, S. Vandepitte, D. De Smedt, J. Javornik, M. Gams, andM.  Luštrek,  ‘Optimizing  non-pharmaceutical  intervention  strategiesagainst COVID-19 using artificial intelligence’,Front. Pub. Health,11,(2023).''') 
+
     if selected == "GitHub":
         st.markdown("## GitHub")
-        st.markdown("You can find the code of this project in the following link: [GitHub](https://github.com/malozano/covid-xprize )")
-        st.markdown("## Comparation with your own model")
-        st.markdown("In this section you can compare your model with the one we have developed. You can upload your own predictions and we will compare them with ours." )
-        st.markdown("### Upload your own predictions")
-        uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
-        if uploaded_file is not None:
-            # Can be used wherever a "file-like" object is accepted:
-            df = pd.read_csv(uploaded_file)
-            st.write(df)
+        st.markdown("You can find the code of this project in the following link: [GitHub](https://github.com/AhmedBegggaUA/V4C)")
+        #st.markdown("## Comparation with your own model")
+        #st.markdown("In this section you can compare your model with the one we have developed. You can upload your own predictions and we will compare them with ours." )
+        #st.markdown("### Upload your own predictions")
+        #uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
+        #if uploaded_file is not None:
+        #    # Can be used wherever a "file-like" object is accepted:
+        #    df = pd.read_csv(uploaded_file)
+        #    st.write(df)
+    if selected == "Data sources":
+        st.markdown("## Data sources")
+        
+        st.write('We have retrieved the number of infected and vaccinated people and the non-pharmaceutical interventions (NPIs) applied in each country of interest from the Oxford Covid-19 Government Response Tracker (OxCGRT) [3]. In Table 1 we depict the considered NPIs. NPIs are categorical variables whose value indicates the application level set for each country, being the higher the level, the more restrictive the measure is applied. H7 NPI indicates if vaccines were not available (0), if they were available to some particular groups among key workers,clinically vulnerable groups, and elderly groups (1-3), broader groups (4) or universally available (5). In [4] a full description for each NPI can be found. The prediction models consider confinement NPIs (C1 to C8) and some public health interventions (H1 to H3 and H6). We use the H/ NPI to incorporate vaccination in a SIR model or complement an SVIR model.')
+
+        st.write('From the OxCGRT data set we also retrieve the number of administered vaccine doses per country and day, including the information of which vaccines were used in each day. But the number of vaccines is not split per vaccine type. The number of vaccine doses in each day by vaccine type can be retrieved from [6, 7], where it is gathered for the following list of countries: Argentina, Austria, Belgium, Bulgaria, Canada, Croatia, Cyprus, Czech Republic,  Denmark,  Ecuador,  Estonia,  Finland,  France,  Germany, Hungary, Ireland, Italy, Latvia, Lithuania, Luxembourg, Netherlands, Norway, Poland, Portugal, Slovak Republic, Slovenia, Spain, Sweden, Switzerland, and United States. From this data set we compute de % of administered vaccines by day and by vaccine type, using these daily % to compute the number of administered vaccines by country and day using the OxCGRT data set.')
+
+        cols = st.columns((2))
+        with cols[0]:
+            st.write('#### Table 1. Considered NPIs and their activation values')
+            _npis = ['C1. School closing', 'C2. Workplace closing', 'C3. Cancelation of public events', 'C4. Restrictions on gatherings','C5. Close public transport', 'C6. Stay at home requirements', 'C7. Internal movement restrictions', 
+                        'C8. Intl. travel controls', 'H1. Public info. campaigns', 'H2. Testing policy', 'H3. Contact tracing','H6. Facial coverings', 'H7. Vaccination policy']
+            _values = ['[0,1,2,3]', '[0,1,2,3]', '[0,1,2]', '[0,1,2,3]', '[0,1,2]', '[0,1,2,3]', '[0,1,2]', '[0,1,2,3]','[0,1,2]', '[0,1,2,3]', '[0,1,2]', '[0,1,2,3,4]', '[0,1,2,3,4,5]']
+            df2 = pd.DataFrame()
+            df2['NPI name'] = _npis
+            df2['Values'] = _values
+            df2 = df2.set_index('NPI name')
+            st.dataframe(df2)
+
+        with cols[1]:
+            st.write('#### Table 2. Economic costs as % of the GDP loss if NPI applied')
+            _economic = [3.9, 22.0, 1.4, 1.4, 0.3, 5.2, 7.8, 6.6, 0.0026, 0.6, 0.1, 0.03]
+            _social = [11, 11, 7, 10, 2, 12, 10, 2, 1, 1, 1, 5]
+            _combined = [0.55, 0.96, 0.32, 0.45, 0.09, 0.62, 0.59, 0.20, 0.04, 0.05, 0.04, 0.21]
+            df = pd.DataFrame()
+            df['NPI name'] = _npis[:-1]
+            df['Economic'] = _economic
+            df['Social'] = _social
+            df['Combined'] = _combined
+            df = df.set_index('NPI name')
+            st.dataframe(df)
+
+        st.write('''###### [3] V.  Janko,  N.  Rešˇciˇc,  A.  Vodopija,  D.  Susiˇc,  C.  De  Masi,  T.  Tušar,A. Gradišek, S. Vandepitte, D. De Smedt, J. Javornik, M. Gams, andM.  Luštrek,  ‘Optimizing  non-pharmaceutical  intervention  strategiesagainst COVID-19 using artificial intelligence’,Front. Pub. Health,11,(2023).''') 
+        st.write('''###### [4]  T. Hale, N. Angrist, R. Goldszmidt, B. Kira, A. Petherick, T. Phillips,S. Webster, E. Cameron-Blake, L. Hallas, S. Majumdar, et al., ‘A globalpanel database of pandemic policies (Oxford COVID-19 GovernmentResponse Tracker)’,Nat. Hum. Behav.,5(4), 529–538, (2021).''')
+        st.write('''###### [5] T.Hale,N.Angrist,R.Goldszmidt,B.Kira,A.Peth-erick,etal.COVID-19GovernmentResponseTracker.https://github.com/OxCGRT/covid-policy-tracker/blob/master/documentation/codebook.md, 2021.''')       
+        st.write('''###### [6] E. Mathieu, H. Ritchie, E. Ortiz-Ospina, M. Roser, J. Hasell, C. Ap-pel,  C.  Giattino,  and  L.  Rodés-Guirao.   Data  on  COVID-19  (coron-avirus) vaccinations by Our World in Data.   https://github.com/owid/covid-19-data/tree/master/public/data/vaccinations, 2021.  [Online; ac-cessed 30-April-2023].''')
+        st.write(''' ###### [7] E. Mathieu, H. Ritchie, E. Ortiz-Ospina, M. Roser, J. Hasell, C. Appel,C.  Giattino,  and  L.  Rodés-Guirao,  ‘A  global  database  of  COVID-19vaccinations’,Nature Hum. Behav.,5(7), 947–953, (2021).''')
+
 except URLError as e:
     st.error(
         """
