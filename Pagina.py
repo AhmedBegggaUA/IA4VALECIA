@@ -254,10 +254,24 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
                   
         with col1:
             st.header("Infected people returning to susceptible")
-            st.latex(r'\sigma(D)_n^j  =  (1-F(d_0,\lambda_0,k_0))Z_{n-14}')
-            st.latex(r'+\sum_{l=1}^{n-d_0}(F(d_0-1+l,\lambda_0,k_0)-F(d_0+l,\lambda_0,k_0))Z_{n-l-14}')
+            st.markdown('''
+                    <style>
+                    .katex {
+                        text-align: left;
+                    }
+                    </style>
+                    ''', unsafe_allow_html=True)
+            #st.latex(r'\sigma(D)_n^j  =  (1-F(d_0,\lambda_0,k_0))Z_{n-14}')
+            # Lo pasamos a markdown
+            st.markdown(r'$$\sigma(D)_n^j  =  (1-F(d_0,\lambda_0,k_0))Z_{n-14}$$', unsafe_allow_html=True)
+            #st.latex(r'+\sum_{l=1}^{n-d_0}(F(d_0-1+l,\lambda_0,k_0)-F(d_0+l,\lambda_0,k_0))Z_{n-l-14}')
+            # Lo pasamos a markdown
+            st.markdown(r'$$+\sum_{l=1}^{n-d_0}(F(d_0-1+l,\lambda_0,k_0)-F(d_0+l,\lambda_0,k_0))Z_{n-l-14}$$', unsafe_allow_html=True)
+            
             #st.image("images/waning_cases.jpg", width=400)
-            st.write("for $n \ge d_{0} + 1$, and $\lambda_{0} = 87.3$ and $k_{0} = 1.4$.")
+            #st.write("for $n \ge d_{0} + 1$, and $\lambda_{0} = 87.3$ and $k_{0} = 1.4$.")
+            # Lo pasamos a markdown
+            st.markdown(r'''for $n \ge d_{0} + 1$, and $\lambda_{0} = 87.3$ and $k_{0} = 1.4$.''')
         with col2:
             st.header("Vaccinated people returning to susceptible")
             st.latex(r'\gamma(V)_n^j  =  \sum_{v=p,f}\sum_{i=1}^8(1-F(d_0,\lambda_{i,v},k_{i,v}))V^i_{n-14}')
