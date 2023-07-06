@@ -198,7 +198,7 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
 
     if selected == "Team":
         st.markdown('# Meet The Team')
-        cols = st.columns((2,1))
+        cols = st.columns((2))
         with cols[0]:
             st.image("team.jpeg",width=600)
         with cols[1]:
