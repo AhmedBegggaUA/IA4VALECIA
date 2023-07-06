@@ -763,7 +763,7 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
             data_fig2 = fig
             st.plotly_chart(figure_or_data=fig)
 
-        st.write('''###### [3] V.  Janko,  N.  Rešˇciˇc,  A.  Vodopija,  D.  Susiˇc,  C.  De  Masi,  T.  Tušar,A. Gradišek, S. Vandepitte, D. De Smedt, J. Javornik, M. Gams, andM.  Luštrek,  ‘Optimizing  non-pharmaceutical  intervention  strategiesagainst COVID-19 using artificial intelligence’,Front. Pub. Health,11,(2023).''') 
+        st.write(''' [3] V.  Janko,  N.  Reščič,  A.  Vodopija,  D.  Susič,  C.  De  Masi,  T.  Tušar,A. Gradišek, S. Vandepitte, D. De Smedt, J. Javornik, M. Gams, andM.  Luštrek,  ‘Optimizing  non-pharmaceutical  intervention  strategiesagainst COVID-19 using artificial intelligence’,Front. Pub. Health,11,(2023).''') 
 
     if selected == "GitHub":
         st.markdown("## GitHub")
