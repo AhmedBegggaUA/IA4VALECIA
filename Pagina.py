@@ -669,7 +669,8 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
             data_pres = data_pres[data_pres.CountryName == country_pres]
             data_pres['Date'] = pd.to_datetime(data_pres['Date'], format = '%Y-%m-%d')
             today_pres = min(data_pres.Date)
-            start_date_pres = st.date_input('Start date ', today_pres)
+            # Ponemos por defecto la fecha del 01-01-2021
+            start_date_pres = st.date_input('Start date ', today_pres, min_value = '2020-01-01')
             start_date_pres = pd.to_datetime(start_date_pres,format = '%Y-%m-%d')
 
             tomorrow_pres = max(data_pres.Date)
