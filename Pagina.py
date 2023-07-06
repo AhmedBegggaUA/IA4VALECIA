@@ -237,7 +237,7 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
         st.header("Weibull distribution")
         #st.latex(r'F(n,\lambda_i,k_i)=e^{-(n/\lambda_i)^{k_i}}, \text{where n stands for day and } \lambda_i \text{ and } k_i \text{ are retrieved from the table below.}')
         # Escribimos lo mismo pero aliñado a la izquierda
-        st.latex(r'\begin{left}\begin{align*}F(n,\lambda_i,k_i)=e^{-(n/\lambda_i)^{k_i}}, \text{where n stands for day and } \lambda_i \text{ and } k_i \text{ are retrieved from the table below.}\end{align*}\end{left}')
+        st.latex(r'\begin{left}F(n,\lambda_i,k_i)=e^{-(n/\lambda_i)^{k_i}}, \text{where n stands for day and } \lambda_i \text{ and } k_i \text{ are retrieved from the table below.}\end{left}')
         #st.image("images/weibull.jpg", width=200)
         #st.write("where n stands for day and $\lambda_{i}$ and $k_{i}$ are retrieved from the table below.")
         # juntamos el st.write con el st.latex
