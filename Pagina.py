@@ -597,6 +597,8 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
 
         with cols[1]:
             foto2 = Image.open("images/Prescriptor.png")
+            # Hacemos que la imagen no sea muy grande
+            foto2 = foto2.resize((500, 300))
             st.image(foto2)
 
     ############################################################################################################
