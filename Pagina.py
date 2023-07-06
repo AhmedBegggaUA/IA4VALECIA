@@ -823,7 +823,7 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
 
         st.write(''' [3] V.  Janko,  N.  Reščič,  A.  Vodopija,  D.  Susič,  C.  De  Masi,  T.  Tušar,A. Gradišek, S. Vandepitte, D. De Smedt, J. Javornik, M. Gams, andM.  Luštrek,  ‘Optimizing  non-pharmaceutical  intervention  strategies against COVID-19 using artificial intelligence’,Front. Pub. Health,11,(2023).''') 
     ############################################################################################################
-        ids = ['C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8EV', 'H1', 'H2', 'H3', 'H6M']
+        ids = ['C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8', 'H1', 'H2', 'H3', 'H6']
         description = ['Record closings of schools and universities', 'Record closings of workplaces', 'Record cancelling public events', 'Record limits on gatherings', 'Record closing of public transport','Record orders to "shelter-in-place" and otherwise confine to the home', 'Record restrictions on internal movement between cities/regions', 'Record restrictions on international travel',
                        'Record presence of public info campaigns', 'Record government policy on who has access to testing', 'Record government policy on contact tracing', 'Record policies on the use of facial coverings outside the home']
         coding = ['0 - no measures \n 1 - recommend closing or all schools open with alterations resulting in significant differences compared to non-Covid-19 operations \n 2 - require closing (only some levels or categories, eg just high school, or just public schools) \n 3 - require closing all levels \n Blank - no data',
@@ -838,6 +838,8 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
                   '0 - no testing policy \n 1 - only those who both (a) have symptoms AND (b) meet specific criteria (eg key workers, admitted to hospital, came into contact with a known case, returned from overseas) \n 2 - testing of anyone showing Covid-19 symptoms \n 3 - open public testing (eg “drive through” testing available to asymptomatic people) \n Blank - no data',
                   '0 - no contact tracing \n 1 - limited contact tracing; not done for all cases \n 2 - comprehensive contact tracing; done for all identified cases \n Blank - no data',
                     '0 - no policy \n 1 - recommended \n 2 - required in some specified shared/public spaces outside the home with other people present and not able to maintain physical distancing \n 3 - required outside the home at all times regardless of location or presence of other people \n Blank - no data']
+        # creaos la misma lista que antes, pero ahora añadiremos saltos de linea despues de cada numero
+        coding = [i.replace('\n', '<br>') for i in coding]
         df = pd.DataFrame()
         df['NPI'] = ids
         df['Description'] = description
