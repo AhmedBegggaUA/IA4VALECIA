@@ -564,8 +564,8 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
                 st.plotly_chart(figure_or_data=fig,use_container_width=True)
         
         cols = st.columns((.2,1))
-        paises = get_UN_data()
-        paises2 = get_UN_data2()
+        #paises = get_UN_data()
+        #paises2 = get_UN_data2()
         with cols[0]:
             modes = ["Death predictor"]
             mode_death = st.selectbox(
