@@ -588,7 +588,7 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
             
     if selected == "Prescriptor": 
         st.markdown("# Prescriptor Models")
-        cols = st.columns((2,5))
+        cols = st.columns((2))
 
         with cols[0]:
             st.write("Our goal in the Prescription phase of the competition is to develop an interpretable, data-driven and flexible prescription framework that would be usable by non machine-learning experts, such as citizens and policy makers in the Valencian Government. Our design principles are therefore driven by developing interpretable and transparent models.")
@@ -597,8 +597,7 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
 
         with cols[1]:
             foto2 = Image.open("images/Prescriptor.png")
-            # Hacemos que la imagen no sea muy grande
-            foto2 = foto2.resize((500, 300))
+            
             st.image(foto2)
 
     ############################################################################################################
