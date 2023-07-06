@@ -284,7 +284,7 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
             
             #st.latex(r'\gamma(V)_n^j  =  \sum_{v=p,f}\sum_{i=1}^8(1-F(d_0,\lambda_{i,v},k_{i,v}))V^i_{n-14}')
             # Lo pasamos a markdown 
-            st.markdown(r'$$\gamma(V)_n^j  =  \sum_{v=p,f}\sum_{i=1}^8(1-F(d_0,\lambda_{i,v},k_{i,v}))V^i_{n-14}$$ $+$ ', unsafe_allow_html=True)
+            st.markdown(r'$$\gamma(V)_n^j  =  \sum_{v=p,f}\sum_{i=1}^8(1-F(d_0,\lambda_{i,v},k_{i,v}))V^i_{n-14}$$ $ + $ ', unsafe_allow_html=True)
             #st.latex(r'+\sum_{v=p,f}\sum_{i=1}^8 \sum_{l=1}^{n-d_1} (F(d_0-1+l,\lambda_{i,v},k_i)-F(d_0+l,\lambda_{i,v},k_{i,v}))V^i_{n-l-14}')
             st.markdown(r'$$\sum_{v=p,f}\sum_{i=1}^8 \sum_{l=1}^{n-d_1} (F(d_0-1+l,\lambda_{i,v},k_i)-F(d_0+l,\lambda_{i,v},k_{i,v}))V^i_{n-l-14}$$', unsafe_allow_html=True)
             #st.image("images/waning_vaccine.jpg", width=400)
