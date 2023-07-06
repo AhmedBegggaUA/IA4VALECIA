@@ -457,7 +457,7 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
         paises = get_UN_data()
         paises2 = get_UN_data2()
         with cols[0]:
-            modes = ["H7 waning cases","H7 waning vaccine","No H7 waning cases","No H7 waning vaccine","XPRIZE waning cases"]
+            modes = ["H7 waning cases","H7 waning vaccine","No H7 waning cases","No H7 waning vaccine","V4C - XPRIZE"]
             mode = st.selectbox(
                 "Select a model ",modes
             )
