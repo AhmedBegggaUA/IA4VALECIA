@@ -854,7 +854,7 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
             # alineamos el texto de las columnas al centro
             
             # Aliniamos el texto de las filas a la izquierda
-            st.dataframe(df2.style.set_properties(**{'text-align': 'center'}),width=700)
+            st.dataframe(df2.style.set_properties(**{'text-align': 'center'}),width=900)
 
         with cols[1]:
             st.write('#### Table 2. Economic costs as % of the GDP loss if NPI applied')
