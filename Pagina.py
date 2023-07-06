@@ -263,10 +263,10 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
                     ''', unsafe_allow_html=True)
             #st.latex(r'\sigma(D)_n^j  =  (1-F(d_0,\lambda_0,k_0))Z_{n-14}')
             # Lo pasamos a markdown
-            st.markdown(r'$$\sigma(D)_n^j  =  (1-F(d_0,\lambda_0,k_0))Z_{n-14}$$', unsafe_allow_html=True)
+            st.markdown(r'$$\sigma(D)_n^j  =  (1-F(d_0,\lambda_0,k_0))Z_{n-14} + $$', unsafe_allow_html=True)
             #st.latex(r'+\sum_{l=1}^{n-d_0}(F(d_0-1+l,\lambda_0,k_0)-F(d_0+l,\lambda_0,k_0))Z_{n-l-14}')
             # Lo pasamos a markdown
-            st.markdown(r'$$+\sum_{l=1}^{n-d_0}(F(d_0-1+l,\lambda_0,k_0)-F(d_0+l,\lambda_0,k_0))Z_{n-l-14}$$', unsafe_allow_html=True)
+            st.markdown(r'$$\sum_{l=1}^{n-d_0}(F(d_0-1+l,\lambda_0,k_0)-F(d_0+l,\lambda_0,k_0))Z_{n-l-14}$$', unsafe_allow_html=True)
             
             #st.image("images/waning_cases.jpg", width=400)
             #st.write("for $n \ge d_{0} + 1$, and $\lambda_{0} = 87.3$ and $k_{0} = 1.4$.")
@@ -274,11 +274,22 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
             st.markdown(r'''for $n \ge d_{0} + 1$, and $\lambda_{0} = 87.3$ and $k_{0} = 1.4$.''')
         with col2:
             st.header("Vaccinated people returning to susceptible")
-            st.latex(r'\gamma(V)_n^j  =  \sum_{v=p,f}\sum_{i=1}^8(1-F(d_0,\lambda_{i,v},k_{i,v}))V^i_{n-14}')
-            st.latex(r'+\sum_{v=p,f}\sum_{i=1}^8 \sum_{l=1}^{n-d_1} (F(d_0-1+l,\lambda_{i,v},k_i)-F(d_0+l,\lambda_{i,v},k_{i,v}))V^i_{n-l-14}')
+            st.markdown('''
+                    <style>
+                    .katex {
+                        text-align: left;
+                    }
+                    </style>
+                    ''', unsafe_allow_html=True)
+            
+            #st.latex(r'\gamma(V)_n^j  =  \sum_{v=p,f}\sum_{i=1}^8(1-F(d_0,\lambda_{i,v},k_{i,v}))V^i_{n-14}')
+            # Lo pasamos a markdown 
+            st.markdown(r'$$\gamma(V)_n^j  =  \sum_{v=p,f}\sum_{i=1}^8(1-F(d_0,\lambda_{i,v},k_{i,v}))V^i_{n-14}$$', unsafe_allow_html=True)
+            #st.latex(r'+\sum_{v=p,f}\sum_{i=1}^8 \sum_{l=1}^{n-d_1} (F(d_0-1+l,\lambda_{i,v},k_i)-F(d_0+l,\lambda_{i,v},k_{i,v}))V^i_{n-l-14}')
+            st.markdown(r'$$+\sum_{v=p,f}\sum_{i=1}^8 \sum_{l=1}^{n-d_1} (F(d_0-1+l,\lambda_{i,v},k_i)-F(d_0+l,\lambda_{i,v},k_{i,v}))V^i_{n-l-14}$$', unsafe_allow_html=True)
             #st.image("images/waning_vaccine.jpg", width=400)
-            st.write("for n $\ge n_{0} + d_{0} = 363$, where $V^i_{s}$ is the number of people vaccinated on the day $s$ with the vaccine $i$, $v$ denotes if people are partially (p) or fully vaccinated (f), and $n_0$ corresponds to December 14th, 2020 (349th day of the year) plus $d_0$ days of latency until people may get infected again when the vaccination started worldwide.")
-
+            #st.write("for n $\ge n_{0} + d_{0} = 363$, where $V^i_{s}$ is the number of people vaccinated on the day $s$ with the vaccine $i$, $v$ denotes if people are partially (p) or fully vaccinated (f), and $n_0$ corresponds to December 14th, 2020 (349th day of the year) plus $d_0$ days of latency until people may get infected again when the vaccination started worldwide.")
+            st.markdown(r'''for n $\ge n_{0} + d_{0} = 363$, where $V^i_{s}$ is the number of people vaccinated on the day $s$ with the vaccine $i$, $v$ denotes if people are partially (p) or fully vaccinated (f), and $n_0$ corresponds to December 14th, 2020 (349th day of the year) plus $d_0$ days of latency until people may get infected again when the vaccination started worldwide.''')
         col1, col2 = st.columns((2))
         with col1:
             st.header("Considered vaccines:")
