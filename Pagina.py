@@ -847,9 +847,9 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
         df['Coding'] = coding
         df = df.set_index('NPI')
         # alineamos el texto de las columnas al centro
-        #st.dataframe(df.style.set_properties(**{'text-align': 'center'}),
-        #            width=1500)
-        st.table(df)
+        st.dataframe(df.style.set_properties(**{'text-align': 'center'}),
+                    width=1500)
+        #st.table(df)
     ############################################################################################################
     if selected == "GitHub":
         st.markdown("## GitHub")
