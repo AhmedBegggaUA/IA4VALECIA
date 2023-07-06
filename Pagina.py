@@ -451,7 +451,7 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
                     \n - H7 waning vaccine. This model is trained with the vaccination countries and includes the H7 NPI and the waning effect of both the protection against the SARS-Cov-2 after an individual gets infected and after a vaccine dose is administered.
                     \n - No H7 waning cases. This model is trained with the vaccination countries and includes the waning effect of the protection against the SARS-Cov-2 after an individual gets infected.
                     \n - No H7 waning vaccine. This model is trained with the vaccination countries and includes the waning effect of both the protection against the SARS-Cov-2 after an individual gets infected and after a vaccine dose is administered.
-                    \n - XPRIZE waning cases. This model is trained with XPRIZE countries and includes the waning effect of the protection against the SARS-Cov-2 after an individual gets infected and trained with all the available countries in the OxCGRT data set. ''')
+                    \n - V4C - XPRIZE waning cases. This model is trained with XPRIZE countries and includes the waning effect of the protection against the SARS-Cov-2 after an individual gets infected and trained with all the available countries in the OxCGRT data set. ''')
 
         cols = st.columns((.2,1))
         paises = get_UN_data()
@@ -516,7 +516,7 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
                 data = data[data.CountryName == country2].reset_index(drop=True)
                 # Group by date  
                 data = data.groupby("fecha").mean().reset_index()
-            elif mode == "XPRIZE waning cases":
+            elif mode == "V4C - XPRIZE":
                 data = pd.read_csv("latest_predictions/xprize_all/NONE_xprice_"+month+".csv")
                 # Filter by the country
                 data = data[data.CountryName == country2].reset_index(drop=True)
