@@ -865,7 +865,7 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
             df['Combined'] = _combined
             df = df.set_index('NPI name')
             # POnemos la tabla centrada
-            st.dataframe(df.style.set_table_styles([dict(selector='th', props=[('text-align', 'right')])]))
+            st.dataframe(df,width=1000)
             
 
         st.write(''' [3] V.  Janko,  N.  Reščič,  A.  Vodopija,  D.  Susič,  C.  De  Masi,  T.  Tušar,A. Gradišek, S. Vandepitte, D. De Smedt, J. Javornik, M. Gams, andM.  Luštrek,  ‘Optimizing  non-pharmaceutical  intervention  strategiesagainst COVID-19 using artificial intelligence’,Front. Pub. Health,11,(2023).''') 
