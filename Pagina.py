@@ -821,7 +821,7 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
             data_fig2 = fig
             st.plotly_chart(figure_or_data=fig)
 
-        st.write(''' [3] V.  Janko,  N.  Reščič,  A.  Vodopija,  D.  Susič,  C.  De  Masi,  T.  Tušar,A. Gradišek, S. Vandepitte, D. De Smedt, J. Javornik, M. Gams, andM.  Luštrek,  ‘Optimizing  non-pharmaceutical  intervention  strategies against COVID-19 using artificial intelligence’,Front. Pub. Health,11,(2023).''') 
+        st.write('In order to check the meaning of each NPI level, please check the table below.')
     ############################################################################################################
         ids = ['C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8', 'H1', 'H2', 'H3', 'H6']
         description = ['Record closings of schools and universities', 'Record closings of workplaces', 'Record cancelling public events', 'Record limits on gatherings', 'Record closing of public transport','Record orders to "shelter-in-place" and otherwise confine to the home', 'Record restrictions on internal movement between cities/regions', 'Record restrictions on international travel',
@@ -850,6 +850,8 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
         st.dataframe(df.style.set_properties(**{'text-align': 'center'}),
                     width=1600)
         #st.table(df)
+        st.write(''' [3] V.  Janko,  N.  Reščič,  A.  Vodopija,  D.  Susič,  C.  De  Masi,  T.  Tušar,A. Gradišek, S. Vandepitte, D. De Smedt, J. Javornik, M. Gams, andM.  Luštrek,  ‘Optimizing  non-pharmaceutical  intervention  strategies against COVID-19 using artificial intelligence’,Front. Pub. Health,11,(2023).''') 
+        
     ############################################################################################################
     if selected == "GitHub":
         st.markdown("## GitHub")
