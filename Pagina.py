@@ -675,8 +675,7 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
             start_date_pres = pd.to_datetime(start_date_pres,format = '%Y-%m-%d')
 
             tomorrow_pres = max(data_pres.Date)
-            max_date = pd.to_datetime("2021-01-31",format = '%Y-%m-%d')
-            end_date_pres = st.date_input('End date ', tomorrow_pres, min_value = max_date)
+            end_date_pres = st.date_input('End date ', tomorrow_pres)
             end_date_pres = pd.to_datetime(end_date_pres,format = '%Y-%m-%d')
             if start_date_pres > end_date_pres:
                 st.error('Error: End date must fall after start date.')
