@@ -221,7 +221,7 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
         cols = st.columns((2))
         with cols[0]:
             foto1 = Image.open("images/v4c.png")
-            foto1 = foto1.resize((600, 400))
+            foto1 = foto1.resize((1000, 300))
             st.image(foto1)
         with cols[1]:
             #st.write("We have developed machine learning-based predictive models of the number"
