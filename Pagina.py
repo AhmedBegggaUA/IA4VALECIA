@@ -459,7 +459,7 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
         paises = get_UN_data()
         paises2 = get_UN_data2()
         with cols[0]:
-            modes = ["H7 waning cases","H7 waning vaccine","No H7 waning cases","No H7 waning vaccine","XPRIZE waning cases","Death predictor"]
+            modes = ["H7 waning cases","H7 waning vaccine","No H7 waning cases","No H7 waning vaccine","XPRIZE waning cases"]
             mode = st.selectbox(
                 "Select a model ",modes
             )
@@ -536,7 +536,70 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
                 data = data[data.CountryName == country2].reset_index(drop=True)
                 # Group by date  
                 data = data.groupby("fecha").mean().reset_index()
-            elif mode == "Death predictor":
+            
+                
+            # Now we plot the data
+            with cols[1]:
+                fig = go.Figure()
+                # Plot the ground truth in orange and dashed
+                fig.add_trace(go.Scatter(x=data['fecha'], y=data['truth'], mode='lines', name='Ground truth',line=dict(color='orange', width=4,dash='dash')))
+                # Plot the predictions in blue and solid
+                if mode != "Death predictor":
+                    fig.add_trace(go.Scatter(x=data['fecha'], y=data['pred'], mode='lines', name='Predictions SVIR',line=dict(color='blue', width=2)))
+                    # Plot the predictions in blue and solid
+                
+                    fig.add_trace(go.Scatter(x=data['fecha'], y=data['pred_sir'], mode='lines', name='Predictions SIR',line=dict(color='green', width=2)))
+                else:
+                    fig.add_trace(go.Scatter(x=data['fecha'], y=data['pred'], mode='lines', name='Predicted Deaths',line=dict(color='blue', width=2)))
+                fig.update_layout(
+                margin=dict(l=20, r=20, t=20, b=20))
+                fig.update_layout(plot_bgcolor='rgba(0, 0, 0, 0)',paper_bgcolor='rgba(0, 0, 0, 0)',)
+                fig.update_yaxes(
+                        mirror=True,
+                        ticks='outside',
+                        showline=True,
+                        linecolor='black',
+                        gridcolor='lightgrey'
+                    )
+                st.plotly_chart(figure_or_data=fig,use_container_width=True)
+        cols = st.columns((.2,1))
+        paises = get_UN_data()
+        paises2 = get_UN_data2()
+        with cols[0]:
+            modes = ["Death predictor"]
+            mode = st.selectbox(
+                "Select a model ",modes
+            )
+            paises_list = list(paises.index.unique())
+            # Sort the list
+            paises_list = sorted(paises_list)
+            paises_list2 = list(paises2.index.unique())
+            # Sort the list
+            paises_list2 = sorted(paises_list2)
+            #paises_list.insert(0, "Europe")
+            #paises_list.insert(0, "Overall")
+            if mode == "H7 waning vaccine":
+                country2 = st.selectbox(
+                    "Choose countries ",paises_list
+                )
+            elif mode == "No H7 waning vaccine":
+                country2 = st.selectbox(
+                    "Choose countries ",paises_list
+                )
+            else:
+                country2 = st.selectbox(
+                    "Choose countries ",paises_list2
+                )
+            
+            months_list = ["January","February","March","April","May","June","July","Agost","September","October","November","December"]
+            months_dates = ["2020-12-28","2021-01-31","2021-01-31","2021-02-28","2021-02-28","2021-03-31","2021-03-31","2021-04-30",
+                            "2021-04-30","2021-05-31","2021-05-31","2021-06-30","2021-06-30","2021-07-31"]
+            months_list_short = ["2021_1","2021_2","2021_3","2021_4","2021_5","2021_6","2021_7","2021_8","2021_9","2021_10","2021_11","2021_12"]
+            # TODO: Estoy aqui
+            month = st.selectbox('Choose a month in 2021  ', months_list)
+            month = months_list_short[months_list.index(month)]
+            
+            if mode == "Death predictor":
                 data = pd.read_csv("muertes_predicciones/"+month+".csv")
                 # Filter by the country
                 data = data[data.CountryName == country2].reset_index(drop=True)
