@@ -786,6 +786,19 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
             # gdf tiene que estar entre start_date_pres y end_date_pres 
             gdf["Date"] = pd.to_datetime(gdf["Date"])
             gdf = gdf[(gdf['Date'] >= start_date_pres) & (gdf['Date'] <= end_date_pres)]
+            # cambiamos los nombres de las columnas a los nuevos que tenemos en NPI_COLUMNS
+            gdf = gdf.rename(columns={"C1M_School closing":"C1: School closing",
+                                    "C2M_Workplace closing":"C2: Workplace closing",
+                                    "C3M_Cancel public events":"C3: Cancel public events",
+                                    "C4M_Restrictions on gatherings":"C4: Restrictions on gatherings",
+                                    "C5M_Close public transport":"C5: Close public transport",
+                                    "C6M_Stay at home requirements":"C6: Stay at home requirements",
+                                    "C7M_Restrictions on internal movement":"C7: Restrictions on internal movement",
+                                    "C8EV_International travel controls":"C8: International travel controls",
+                                    "H1_Public information campaigns":"H1: Public information campaigns",
+                                    "H2_Testing policy":"H2: Testing policy",
+                                    "H3_Contact tracing":"H3: Contact tracing",
+                                    "H6M_Facial Coverings":"H6: Facial Coverings"})
             # Comprobamos que la Date y las NPI_COLUMNS sean del mismo tamaño
             if len(gdf) != len(NPI_COLUMNS):
                 print("ERROR")
