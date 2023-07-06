@@ -205,15 +205,15 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
             st.write('''### OUR MULTIDISCIPLINARY TEAM''')
             st.write('''##### VALENCIA IA4COVID''',color = 'yellow')
             st.write('''This group is made up of more than twenty experts from the Universities and research centers of the Valencian Community (Spain) and led by Dr. Nuria Oliver. We have all been working intensively since the beginning of the pandemic, altruistically and using the resources available to us in our respective institutions and with the occasional philanthropic collaboration of some companies.''')
-            st.write('''**Affiliated with:**
+            st.write('''**Affiliated with:**\n
                 \n - Ellis Alicante: Nuria Oliver
-                \n - Universitat Politècnica de València:
+                \n - Universitat Politècnica de València:\n
                     Alberto Conejero, Miguel Rebollo, Miguel Ángel García March, Òscar Garibo i Orts, Eloy Piñol, Víctor Escaladas, Manuel Portolés, Sergi de María
-                \n - Universidad de Alicante
+                \n - Universidad de Alicante\n
                     Francisco Escolano, Miguel Ángel Lozano, Ahmed Begga
-                \n - Universidad Miguel Hernández
+                \n - Universidad Miguel Hernández\n
                     Kristina Polotskaya, Aurora Mula, Elisa Espín
-                \n - Universidad Cardenal Herrera CEU:
+                \n - Universidad Cardenal Herrera CEU:\n
                     Antonio Falcó ''')
         
     if selected == "Computational epidemiological models":
