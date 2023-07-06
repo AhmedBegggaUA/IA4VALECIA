@@ -263,7 +263,7 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
                     ''', unsafe_allow_html=True)
             #st.latex(r'\sigma(D)_n^j  =  (1-F(d_0,\lambda_0,k_0))Z_{n-14}')
             # Lo pasamos a markdown
-            st.markdown(r'$$\sigma(D)_n^j  =  (1-F(d_0,\lambda_0,k_0))Z_{n-14} + $$', unsafe_allow_html=True)
+            st.markdown(r'$$\sigma(D)_n^j  =  (1-F(d_0,\lambda_0,k_0))Z_{n-14}$$ $ + $', unsafe_allow_html=True)
             #st.latex(r'+\sum_{l=1}^{n-d_0}(F(d_0-1+l,\lambda_0,k_0)-F(d_0+l,\lambda_0,k_0))Z_{n-l-14}')
             # Lo pasamos a markdown
             st.markdown(r'$$\sum_{l=1}^{n-d_0}(F(d_0-1+l,\lambda_0,k_0)-F(d_0+l,\lambda_0,k_0))Z_{n-l-14}$$', unsafe_allow_html=True)
