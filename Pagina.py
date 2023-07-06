@@ -839,7 +839,6 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
                   '0 - no contact tracing \n 1 - limited contact tracing; not done for all cases \n 2 - comprehensive contact tracing; done for all identified cases \n Blank - no data',
                     '0 - no policy \n 1 - recommended \n 2 - required in some specified shared/public spaces outside the home with other people present and not able to maintain physical distancing \n 3 - required outside the home at all times regardless of location or presence of other people \n Blank - no data']
         # creaos la misma lista que antes, pero ahora añadiremos saltos de linea despues de cada numero
-        coding = [i.replace('\n', '<br>') for i in coding]
         df = pd.DataFrame()
         df['NPI'] = ids
         df['Description'] = description
