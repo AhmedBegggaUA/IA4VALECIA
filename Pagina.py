@@ -580,15 +580,15 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
             #paises_list.insert(0, "Europe")
             #paises_list.insert(0, "Overall")
             if mode_death == "H7 waning vaccine":
-                country2 = st.selectbox(
+                country_death = st.selectbox(
                     "Choose countries ",paises_list
                 )
             elif mode_death == "No H7 waning vaccine":
-                country2 = st.selectbox(
+                country_death = st.selectbox(
                     "Choose countries ",paises_list
                 )
             else:
-                country2 = st.selectbox(
+                country_death = st.selectbox(
                     "Choose countries ",paises_list2
                 )
             
@@ -597,11 +597,11 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
                             "2021-04-30","2021-05-31","2021-05-31","2021-06-30","2021-06-30","2021-07-31"]
             months_list_short = ["2021_1","2021_2","2021_3","2021_4","2021_5","2021_6","2021_7","2021_8","2021_9","2021_10","2021_11","2021_12"]
             # TODO: Estoy aqui
-            month = st.selectbox('Choose a month in 2021  ', months_list)
-            month = months_list_short[months_list.index(month)]
+            month_death = st.selectbox('Choose a month in 2021  ', months_list)
+            month_death = months_list_short[months_list.index(month_death)]
             
             if mode_death == "Death predictor":
-                data = pd.read_csv("muertes_predicciones/"+month+".csv")
+                data = pd.read_csv("muertes_predicciones/"+month_death+".csv")
                 # Filter by the country
                 data = data[data.CountryName == country2].reset_index(drop=True)
                 # Group by date
