@@ -229,7 +229,7 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
         
     if selected == "Computational epidemiological models":
         st.markdown("# Computational epidemiological models")
-        cols = st.columns((5,2))
+        cols = st.columns((2))
         with cols[0]:
             foto1 = Image.open("images/v4c.png")
             foto1 = foto1.resize((600, 400))
