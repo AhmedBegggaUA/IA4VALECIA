@@ -822,7 +822,30 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
             st.plotly_chart(figure_or_data=fig)
 
         st.write(''' [3] V.  Janko,  N.  Reščič,  A.  Vodopija,  D.  Susič,  C.  De  Masi,  T.  Tušar,A. Gradišek, S. Vandepitte, D. De Smedt, J. Javornik, M. Gams, andM.  Luštrek,  ‘Optimizing  non-pharmaceutical  intervention  strategies against COVID-19 using artificial intelligence’,Front. Pub. Health,11,(2023).''') 
-
+    ############################################################################################################
+        ids = ['C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8EV', 'H1', 'H2', 'H3', 'H6M']
+        description = ['Record closings of schools and universities', 'Record closings of workplaces', 'Record cancelling public events', 'Record limits on gatherings', 'Record closing of public transport','Record orders to "shelter-in-place" and otherwise confine to the home', 'Record restrictions on internal movement between cities/regions', 'Record restrictions on international travel',
+                       'Record presence of public info campaigns', 'Record government policy on who has access to testing', 'Record government policy on contact tracing', 'Record policies on the use of facial coverings outside the home']
+        coding = ['0 - no measures \n 1 - recommend closing or all schools open with alterations resulting in significant differences compared to non-Covid-19 operations \n 2 - require closing (only some levels or categories, eg just high school, or just public schools) \n 3 - require closing all levels \n Blank - no data',
+                  '0 - no measures \n 1 - recommend closing (or recommend work from home) or all businesses open with alterations resulting in significant differences compared to non-Covid-19 operation \n 2 - require closing (or work from home) for some sectors or categories of workers \n 3 - require closing (or work from home) for all-but-essential workplaces (eg grocery stores, doctors) \n Blank - no data',
+                  '0 - no measures \n 1 - recommend cancelling \n 2 - require cancelling \n Blank - no data',
+                  '0 - no restrictions \n 1 - restrictions on very large gatherings (the limit is above 1000 people) \n 2 - restrictions on gatherings between 101-1000 people \n 3 - restrictions on gatherings between 11-100 people \n 4 - restrictions on gatherings of 10 people or less \n Blank - no data',
+                  '0 - no measures \n 1 - recommend closing (or significantly reduce volume/route/means of transport available) \n 2 - require closing (or prohibit most citizens from using it) \n Blank - no data',
+                  '0 - no measures \n 1 - recommend not leaving house \n 2 - require not leaving house with exceptions for daily exercise, grocery shopping, and ‘essential’ trips \n 3 - require not leaving house with minimal exceptions (eg allowed to leave once a week, or only one person can leave at a time, etc) \n Blank - no data',
+                  '0 - no measures \n 1 - internal movement restrictions in place (e.g. strict restrictions in some regions/cities) \n 2 - internal movement restrictions recommended (e.g. “reduced” mobility) \n 3 - no internal movement restrictions \n Blank - no data',
+                  '0 - no restrictions \n 1 - screening arrivals \n 2 - quarantine arrivals from some or all regions \n 3 - ban arrivals from some regions \n 4 - ban on all regions or total border closure \n Blank - no data',
+                  '0 - no Covid-19 public info campaign \n 1 - public officials urging caution about Covid-19 \n 2 - coordinated public info campaign (eg across traditional and social media) \n Blank - no data',
+                  '0 - no testing policy \n 1 - only those who both (a) have symptoms AND (b) meet specific criteria (eg key workers, admitted to hospital, came into contact with a known case, returned from overseas) \n 2 - testing of anyone showing Covid-19 symptoms \n 3 - open public testing (eg “drive through” testing available to asymptomatic people) \n Blank - no data',
+                  '0 - no contact tracing \n 1 - limited contact tracing; not done for all cases \n 2 - comprehensive contact tracing; done for all identified cases \n Blank - no data',
+                    '0 - no policy \n 1 - recommended \n 2 - required in some specified shared/public spaces outside the home with other people present and not able to maintain physical distancing \n 3 - required outside the home at all times regardless of location or presence of other people \n Blank - no data']
+        df = pd.DataFrame()
+        df['NPI'] = ids
+        df['Description'] = description
+        df['Coding'] = coding
+        df = df.set_index('NPI')
+        # alineamos el texto de las columnas al centro
+        st.dataframe(df.style.set_properties(**{'text-align': 'center'}),width=900)
+    ############################################################################################################
     if selected == "GitHub":
         st.markdown("## GitHub")
         st.markdown("You can find the code of this project in the following link: [GitHub](https://github.com/AhmedBegggaUA/V4C)")
