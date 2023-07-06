@@ -208,9 +208,9 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
             st.write('''**Affiliated with:**\n
                 \n - **Ellis Alicante**: Nuria Oliver.
                 \n - **Universitat Politècnica de València**:
-                    Alberto Conejero, Miguel Rebollo, Miguel Ángel García March, Òscar Garibo i Orts, Eloy Piñol, Víctor Escaladas, Manuel Portolés, Sergi de María.
+                    Alberto Conejero, Miguel Rebollo, Miguel Ángel García March, Òscar Garibo i Orts, Eloy Piñol, Víctor Escaladas, Manuel Portolés,Ahmed Begga, Sergi de María.
                 \n - **Universidad de Alicante**:
-                    Francisco Escolano, Miguel Ángel Lozano, Ahmed Begga
+                    Francisco Escolano, Miguel Ángel Lozano. 
                 \n - **Universidad Miguel Hernández**:
                     Kristina Polotskaya, Aurora Mula, Elisa Espín.
                 \n - **Universidad Cardenal Herrera CEU**:
