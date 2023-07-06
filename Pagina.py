@@ -870,11 +870,11 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
             # POnemos la tabla centrada
             st.dataframe(df.style.set_properties(**{'text-align': 'center'}),width=900)
 
-        st.write(''' [3] V.  Janko,  N.  Reščič,  A.  Vodopija,  D.  Susič,  C.  De  Masi,  T.  Tušar,A. Gradišek, S. Vandepitte, D. De Smedt, J. Javornik, M. Gams, andM.  Luštrek,  ‘Optimizing  non-pharmaceutical  intervention  strategiesagainst COVID-19 using artificial intelligence’,Front. Pub. Health,11,(2023).''') 
-        st.write(''' [4]  T. Hale, N. Angrist, R. Goldszmidt, B. Kira, A. Petherick, T. Phillips,S. Webster, E. Cameron-Blake, L. Hallas, S. Majumdar, et al., ‘A globalpanel database of pandemic policies (Oxford COVID-19 GovernmentResponse Tracker)’,Nat. Hum. Behav.,5(4), 529–538, (2021).''')
-        st.write(''' [5] T.Hale,N.Angrist,R.Goldszmidt,B.Kira,A.Peth-erick,etal.COVID-19GovernmentResponseTracker.https://github.com/OxCGRT/covid-policy-tracker/blob/master/documentation/codebook.md, 2021.''')       
-        st.write(''' [6] E. Mathieu, H. Ritchie, E. Ortiz-Ospina, M. Roser, J. Hasell, C. Ap-pel,  C.  Giattino,  and  L.  Rodés-Guirao.   Data  on  COVID-19  (coron-avirus) vaccinations by Our World in Data.   https://github.com/owid/covid-19-data/tree/master/public/data/vaccinations, 2021.  [Online; ac-cessed 30-April-2023].''')
-        st.write(''' [7] E. Mathieu, H. Ritchie, E. Ortiz-Ospina, M. Roser, J. Hasell, C. Appel,C.  Giattino,  and  L.  Rodés-Guirao,  ‘A  global  database  of  COVID-19vaccinations’,Nature Hum. Behav.,5(7), 947–953, (2021).''')
+        st.write(''' [3] V.  Janko,  N.  Reščič,  A.  Vodopija,  D.  Susič,  C.  De  Masi,  T.  Tušar,A. Gradišek, S. Vandepitte, D. De Smedt, J. Javornik, M. Gams, andM.  Luštrek,  ‘Optimizing  non-pharmaceutical  intervention  strategies against COVID-19 using artificial intelligence’,Front. Pub. Health,11,(2023).''') 
+        st.write(''' [4]  T. Hale, N. Angrist, R. Goldszmidt, B. Kira, A. Petherick, T. Phillips,S. Webster, E. Cameron-Blake, L. Hallas, S. Majumdar, et al., ‘A global panel database of pandemic policies (Oxford COVID-19 Government Response Tracker)’,Nat. Hum. Behav.,5(4), 529–538, (2021).''')
+        st.write(''' [5] T.Hale,N.Angrist,R.Goldszmidt,B.Kira,A.Peth-erick,etal.COVID-19 Government Response Tracker.https://github.com/OxCGRT/covid-policy-tracker/blob/master/documentation/codebook.md, 2021.''')       
+        st.write(''' [6] E. Mathieu, H. Ritchie, E. Ortiz-Ospina, M. Roser, J. Hasell, C. Ap-pel,  C.  Giattino,  and  L.  Rodés-Guirao.   Data  on  COVID-19  (coronavirus) vaccinations by Our World in Data.   https://github.com/owid/covid-19-data/tree/master/public/data/vaccinations, 2021.  [Online; ac-cessed 30-April-2023].''')
+        st.write(''' [7] E. Mathieu, H. Ritchie, E. Ortiz-Ospina, M. Roser, J. Hasell, C. Appel,C.  Giattino,  and  L.  Rodés-Guirao,  ‘A  global  database  of  COVID-19 vaccinations’,Nature Hum. Behav.,5(7), 947–953, (2021).''')
 
 except URLError as e:
     st.error(
