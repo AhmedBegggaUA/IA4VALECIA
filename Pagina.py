@@ -869,7 +869,8 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
             df = df.set_index('NPI name')
             # POnemos la tabla centrada
             st.dataframe(df.style.set_properties(**{'text-align': 'center'}),width=900)
-            
+            # Ponemos una caption
+            st.caption('#### Table 2. Economic costs as % of the GDP loss if NPI applied')
 
         st.write(''' [3] V.  Janko,  N.  Reščič,  A.  Vodopija,  D.  Susič,  C.  De  Masi,  T.  Tušar,A. Gradišek, S. Vandepitte, D. De Smedt, J. Javornik, M. Gams, andM.  Luštrek,  ‘Optimizing  non-pharmaceutical  intervention  strategiesagainst COVID-19 using artificial intelligence’,Front. Pub. Health,11,(2023).''') 
         st.write(''' [4]  T. Hale, N. Angrist, R. Goldszmidt, B. Kira, A. Petherick, T. Phillips,S. Webster, E. Cameron-Blake, L. Hallas, S. Majumdar, et al., ‘A globalpanel database of pandemic policies (Oxford COVID-19 GovernmentResponse Tracker)’,Nat. Hum. Behav.,5(4), 529–538, (2021).''')
