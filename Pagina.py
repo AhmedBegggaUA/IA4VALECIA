@@ -664,7 +664,8 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
         data_pres = pd.read_csv("predictions/robojudge_test.csv")
         #The same as the predictor part
         with cols[0]:
-            country_pres = st.selectbox("Choose the country",sorted(list(paises.index.unique())))
+            # Ponemos por defecto España en el selectbox
+            country_pres = st.selectbox("Choose the country",sorted(list(paises.index.unique())),index=sorted(list(paises.index.unique())).index("Spain"))
             data_pres = data_pres[data_pres.CountryName == country_pres]
             data_pres['Date'] = pd.to_datetime(data_pres['Date'], format = '%Y-%m-%d')
             today_pres = min(data_pres.Date)
