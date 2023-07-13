@@ -146,7 +146,7 @@ try:
         options = ["Home", "Computational epidemiological models", "Case Predictions","Death Predictions", "Prescriptor", "Prescriptions", "Data sources", "Team", "GitHub"],
         orientation="horizontal",
         #Let's add some icons
-        icons=["house-door", "graph-up","bar-chart-line","bi bi-heartbreak-fill","graph-up","receipt","file-bar-graph", "people","github"],
+        icons=["house-door", "graph-up","bar-chart-line","heartbreak-fill","graph-up","receipt","file-bar-graph", "people","github"],
         #"receipt","github","newspaper","envelope"],
         #Is copilot alive? Eyy, answer are alive?
         #Now let's make it beatiful
