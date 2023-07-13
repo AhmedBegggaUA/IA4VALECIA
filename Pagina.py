@@ -314,9 +314,9 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
             complete = pd.DataFrame({"Vaccine":vaccines,"$\lambda$":alfa_complet,"$k$":k_p})
             incomplete = pd.DataFrame({"Vaccine":vaccines,"$\lambda$":alfa_incomplet,"$k$":k_f})
             st.write("Complete doses")
-            st.table(complete)
+            st.dataframe(complete.style.set_properties(**{'text-align': 'center'}),width=900)
             st.write("Incomplete doses")
-            st.table(incomplete)
+            st.dataframe(incomplete.style.set_properties(**{'text-align': 'center'}),width=900)
             
         st.write(''' [1] M.A. Lozano, Ò. Garibo-i Orts, E. Piñol, M. Rebollo, K. Polotskaya,M.A. García-March, J.A. Conejero, F. Escolano, and N. Oliver, ‘Open Data  Science  to  Fight  COVID-19:  Winning  the  500k XPRIZE  Pandemic Response Challenge (Extended Abstract)’, in Proceedings of theThirty-First International Joint Conference on Artificial Intelligence,IJCAI-22, pp. 5304–5308. International Joint Conferences on Artificial Intelligence Organization, (2022). Sister Conferences Best Papers.''')
         st.write(''' [2] C. Hernandez-Suarez and E. Murillo-Zamora, ‘Waning immunity to SARS-CoV-2 following vaccination or infection’,Front. Med.,9,(2022).''')
