@@ -304,7 +304,8 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
                      \n PB: BNT162b2 (Pfizer/BioNTech)''')
         with col2:
             st.header("Fitted parameters for the Weibull distribution $(\lambda, k)$, for complete and incomplete doses. Values extractec from [2].")
-            st.image("images/fitted_parameters.jpg", width=500)
+            
+            st.image("images/fitted_parameters.jpg", width=800,height=400)
             vaccines = ["OA","CA","MO","SP","SV","GA","JA","PB"]
             alfa_complet = [205.6, 166.0, 217.0, 191.0, 184.9, 206.2, 178.6, 235.3]
             k_p = [2.9, 2.0, 3.6, 2.7, 2.5, 2.9, 3.0, 2.7]
