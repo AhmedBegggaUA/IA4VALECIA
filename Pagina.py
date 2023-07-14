@@ -519,7 +519,7 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
         st.markdown('# Predict cases of Covid-19')
 
         st.write(''' Two sets of countries have been used to train our models:
-                    \n - XPRIZE countries: this set includes all countries in the OxCGRT data set.
+                    \n - OxCGRT countries: this set includes all countries in the OxCGRT data set.
                     \n - Vaccination countries: this set includes all countries from which we can extract the number of administered vaccines per day by vaccine type. This set includes the following countries: Argentina, Austria, Belgium, Bulgaria, Canada, Croatia, Cyprus, Czech Republic,  Denmark,  Ecuador,  Estonia,  Finland,  France,  Germany, Hungary, Ireland, Italy, Latvia, Lithuania, Luxembourg, Netherlands, Norway, Poland, Portugal, Slovak Republic, Slovenia, Spain, Sweden, Switzerland, and United States.''')
 
         st.write(''' We have trained five models to predict new infections by day and one model to predict new deaths by day, with the following particularities:
@@ -528,6 +528,9 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
                     \n - No H7 waning cases. This model is trained with the vaccination countries and includes the waning effect of the protection against the SARS-Cov-2 after an individual gets infected.
                     \n - No H7 waning vaccine. This model is trained with the vaccination countries and includes the waning effect of both the protection against the SARS-Cov-2 after an individual gets infected and after a vaccine dose is administered.
                     \n - V4C - XPRIZE waning cases. This model is trained with XPRIZE countries and includes the waning effect of the protection against the SARS-Cov-2 after an individual gets infected and trained with all the available countries in the OxCGRT data set. ''')
+
+        st.markdown(r''' All these model predict the $R_n$ and we get the predicted number of cases using this formula: $\widehat{X}_n^j = \left(\widehat{R}_n^j\frac{S_{n-1}^j}{P_j}-1\right)KZ_{n-1}^j+X_{n-K}^j$,''')
+        st.markdown(r''' being $S_{n-1}^j$ the number of succeptible cases for $GEO_j$ at day n-1, K a constant of value $7$, $Z_{n-1}^j$ the smoothed cumulated cases untill day n-1 for $GEO_j$ and $X_{n-K}^j$ the cases declared for $GEO_j$ K previous days.''')
 
         cols = st.columns((.2,1))
         paises = get_UN_data()
