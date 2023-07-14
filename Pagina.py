@@ -640,8 +640,9 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
                     )
                 st.plotly_chart(figure_or_data=fig,use_container_width=True)
     if selected == "Deaths Predictions":
-        st.markdown('# Predict deaths of Covid-19')
+        st.markdown('# Predict deaths due to Covid-19')
         st.write('''- Death predictor. This model is trained with XPRIZE countries and includes the waning effect of the protection against the SARS-Cov-2 after an individual gets infected and trained with all the available countries in the OxCGRT data set.''')
+        st.markdown(r'''These models also predict the number of daily deaths to happen in each country from the $R_n$, in this case we use the formula: AÑADIR''')
         cols = st.columns((.2,1))
         paises = get_UN_data()
         paises2 = get_UN_data2()
