@@ -317,7 +317,7 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
                      \n **JA**: Ad26.COV2.S (Janssen).
                      \n **PB**: BNT162b2 (Pfizer/BioNTech).''')
         with col2:
-            st.header("Fitted parameters for the Weibull distribution $(\lambda, k)$, for complete and incomplete doses.") # Values extractec from [2].")
+            st.header("Fitted parameters for the Weibull distribution $(\lambda, k)$.") # Values extractec from [2].")
             col3, col4 = st.columns((2))
             with col3:
                 st.write('#### Table 1. Complete dose')
