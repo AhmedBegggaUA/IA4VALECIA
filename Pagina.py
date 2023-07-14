@@ -339,10 +339,11 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
                 _ks = [1.3, 1.15, 1.15, 1.15, 1.2, 1.2, '--', 1.1]
                 df = pd.DataFrame()
                 df['Vaccine'] = _vaccines
-                df[r'''$$\lambda_f$$'''] = _lambdas
+                df['λ'] = _lambdas
                 df[r'''$$k_f$$'''] = _ks
                 df = df.set_index('Vaccine')
             # POnemos la tabla centrada
+                # Ponemos 
                 st.dataframe(df.style.set_properties(**{'text-align': 'center'}) ,width=900 )
 
         st.write(''' [1] M.A. Lozano, Ò. Garibo-i Orts, E. Piñol, M. Rebollo, K. Polotskaya,M.A. García-March, J.A. Conejero, F. Escolano, and N. Oliver, ‘Open Data  Science  to  Fight  COVID-19:  Winning  the  500k XPRIZE  Pandemic Response Challenge (Extended Abstract)’, in Proceedings of theThirty-First International Joint Conference on Artificial Intelligence,IJCAI-22, pp. 5304–5308. International Joint Conferences on Artificial Intelligence Organization, (2022). Sister Conferences Best Papers.''')
