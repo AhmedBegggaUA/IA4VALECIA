@@ -239,19 +239,26 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
         st.write('''We have implemented ten models to be compared. First, we have considered as a baseline model the SIR based model in [1] by M.A. Lozano et al. We point out that we can only include vaccination in a SIR model by adding the H7 Non Pharmaceutial Intervention (Record policies for vaccine delivery for different groups). In order the extend the study of the vaccination effects in the pandemic spread we introduced the vaccination waning modeled by a Weibull distribution function. We have calculated the waning of the protection agains the SARS-CoV-2 due to a previous infection and denoted the resulting models by "waning cases". Additionaly, we have used vaccination data from 30 countries for which we have been able to get the number of vaccines distributed on a daily basis, identified by the vaccine brand. This allows us to compute the waning of the vaccine protection for each vaccine type along time and incorporate this effect to our models. We denote such models by "waning vaccine".  We point out that the "waning cases" have been computed for all the countries in the study and that the countries for which we have computed the "waning vaccine" also include the "waning cases" effect. We consider that the vaccine protection starts 14 after the last vaccine dose (completed or not) and we also consider that people can be reinfected after $d_{0} = 14$ days.''')
 
         st.header("Weibull distribution")
+        col1, col2 = st.columns((2))
+        with col1:
+            st.markdown('''We denote the complement of the Weibull distribution for describing the waning effect associated with each one of the 8 vaccines on the day n by: ''')
         #st.latex(r'F(n,\lambda_i,k_i)=e^{-(n/\lambda_i)^{k_i}}, \text{where n stands for day and } \lambda_i \text{ and } k_i \text{ are retrieved from the table below.}')
         # Escribimos lo mismo pero aliñado a la izquierda
         #st.latex(r'\begin{align*} F(n,\lambda_i,k_i)=e^{-(n/\lambda_i)^{k_i}}, \text{where n stands for day and } \lambda_i \text{ and } k_i \text{ are retrieved from the table below.} \end{align*}')
         # Escribimos la misma formula pero en markdown
-        st.markdown('''
+            st.markdown('''
                     <style>
                     .katex {
                         text-align: left;
                     }
                     </style>
                     ''', unsafe_allow_html=True)
-        st.markdown(r'$$F(n,\lambda_i,k_i)=e^{-(n/\lambda_i)^{k_i}}, \text{where n stands for day and } \lambda_i \text{ and } k_i \text{ are retrieved from the table below.}$$', unsafe_allow_html=True)
-        #st.image("images/weibull.jpg", width=200)
+            st.markdown(r'''$F(n,\lambda_i,k_i)=e^{-(n/\lambda_i)^{k_i}}$, where n stands for day and $\lambda_i$ and $k_i$ are retrieved from [2] and shown in the Tables 1 and 2 below.''', unsafe_allow_html=True)
+
+            st.markdown(r'''These models are known as accelerated failure times models and they appear frequently in survival analyses. The fitting parameters $\lambda_i$ (scale parameter) and  $k_i$ (shape parameter) are available for people vaccinated with either a complete or incomplete dose and for actively infected people.''')
+        
+        with col2:
+            st.image("images/weibulls.png", width=600, caption="Weibull distribution for describing the waning effect of infected people and from people vaccinated with a full dose of vaccines OA, CA, MO, SP, SV, GA, JA, and PB.")
         #st.write("where n stands for day and $\lambda_{i}$ and $k_{i}$ are retrieved from the table below.")
         # juntamos el st.write con el st.latex
         col1, col2 = st.columns((2))
