@@ -195,6 +195,10 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
         cols[2].image("logos/logo_santander_universidades.jpg", width=200)
         cols[3].image("logos/logo_bbva.jpg", width=200)
         
+        st.markdown('''##### Publications related to this work:
+                \n - Lozano, M., Garibo-i-Orts, Ò., Piñol, E., Rebollo, M., Polotskaya, K., García-March, M., et al. (2021). Open data science to fight COVID-19: winning the 500k XPRIZE pandemic response challenge. In Machine Learning and Knowledge Discovery in Databases. Applied Data Science Track: European Conference, ECML PKDD 2021, Bilbao, Spain, September 13–17, 2021, Proceedings, Part IV (Springer), 384–399.
+                \n - Lozano, M., Garibo-i-Orts, Ò., Piñol, E., Rebollo, M., Polotskaya, K., García-March, M., et al. (2022). Open Data Science to Fight COVID-19: Winning the 500k XPRIZE Pandemic Response Challenge (Extended Abstract). In Proceedings of the Thirty-First International Joint Conference on Artificial Intelligence, IJCAI-22 (International Joint Conferences on Artificial Intelligence Organization), 5304–5308. Sister Conferences Best Papers.
+                \n - Hervas, D., Rebollo, M., Conejero, J. A., Oliver, N., et al. (2022). Covid-19 outbreaks analysis in the Valencian region of Spain in the prelude of the third wave. Frontiers in Public Health 10, 1010124''')
 
     if selected == "Team":
         st.markdown('# Meet The Team')
