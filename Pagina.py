@@ -313,7 +313,9 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
             k_f = [1.3, 1.15, 1.15, 1.15, 1.2, 1.2,np.nan, 1.1] 
             # Now we show the table in the same column
             complete = pd.DataFrame({"Vaccine":vaccines,"$\lambda$":alfa_complet,"$k$":k_p})
+            complete = complete.set_index('Vaccine')
             incomplete = pd.DataFrame({"Vaccine":vaccines,"$\lambda$":alfa_incomplet,"$k$":k_f})
+            incomplete = incomplete.set_index('Vaccine')
             st.write("Complete doses")
             st.dataframe(complete.style.set_properties(**{'text-align': 'center'}),width=900)
             st.write("Incomplete doses")
