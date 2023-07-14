@@ -730,10 +730,10 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
             st.write("Given the intervention costs, it automatically generates up to 10 Pareto-optimal intervention plans. For each plan, it shows the resulting number of cases and overall stringency, its position on the Pareto front and the activation regime of each of the 12 types of interventions that are part of the plan.")
 
         with cols[1]:
-            foto2 = Image.open("images/Prescriptor.png")
+            foto2 = Image.open("images/prescriptor-good.png")
             # cambiamos el tamaño de la imagen
             foto2 = foto2.resize((600, 400))
-            st.image(foto2)
+            st.image(foto2, caption='Architecture of the prescriptor of NPIs')
 
     ############################################################################################################
     #                                         Prescriptor                                                      #
