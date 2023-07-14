@@ -321,26 +321,26 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
             col3, col4 = st.columns((2))
             with col3:
                 st.write('#### Table 1. Complete dose')
-                _vaccines = ['(OA)', '(CA)', '(MO)', '(SP)', '(SV)', '(GA)', '(JA)', '(PB)']
+                _vaccines = ['OA', 'CA', 'MO', 'SP', 'SV', 'GA', 'JA', 'PB']
                 _lambdas = [205.6, 166.0, 217.0, 191.0, 184.9, 206.2, 178.6, 235.3]
                 _ks = [2.9, 2.0, 3.6, 2.7, 2.5, 2.9, 3.0, 2.7]
                 df = pd.DataFrame()
                 df['Vaccine'] = _vaccines
-                df[r'''$\lambda_p$'''] = _lambdas
-                df[r'''$k_p$'''] = _ks
+                df['λ'] = _lambdas
+                df['k'] = _ks
                 df = df.set_index('Vaccine')
             # POnemos la tabla centrada
                 st.dataframe(df.style.set_properties(**{'text-align': 'center'}),width=900)
             #st.image("images/fitted_parameters.jpg", width=500)
             with col4:
                 st.write('#### Table 2. Incomplete dose')
-                _vaccines = ['(OA)', '(CA)', '(MO)', '(SP)', '(SV)', '(GA)', '(JA)', '(PB)']
+                #_vaccines = ['(OA)', '(CA)', '(MO)', '(SP)', '(SV)', '(GA)', '(JA)', '(PB)']
                 _lambdas = [65.6, 63.5, 83.5, 73.2, 70.1, 77.5, '--', 92.0]
                 _ks = [1.3, 1.15, 1.15, 1.15, 1.2, 1.2, '--', 1.1]
                 df = pd.DataFrame()
                 df['Vaccine'] = _vaccines
                 df['λ'] = _lambdas
-                df[r'''$$k_f$$'''] = _ks
+                df['k'] = _ks
                 df = df.set_index('Vaccine')
             # POnemos la tabla centrada
                 # Ponemos 
