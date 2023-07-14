@@ -308,33 +308,43 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
             st.header("Considered vaccines:")
         
             st.write(''' \n  \n  \n
-                     \n OA: ChAdOx1 (Oxford/Astrazeneca)
-                     \n CA: Ad5-nCoV Convidecia (Cansino)
-                     \n MO: mRNA-1273 (Moderna/Biotech)
-                     \n SP: BBIBP-CorV (Sinopharm)
-                     \n SV: CoronaVac (Sinovac)
-                     \n GA: Sputnik V/Gam-COVID-Vac (Gamaleya)
-                     \n JA: Ad26.COV2.S (Janssen)
-                     \n PB: BNT162b2 (Pfizer/BioNTech)''')
+                     \n **OA**: ChAdOx1 (Oxford/Astrazeneca).
+                     \n **CA**: Ad5-nCoV Convidecia (Cansino).
+                     \n **MO**: mRNA-1273 (Moderna/Biotech).
+                     \n **SP**: BBIBP-CorV (Sinopharm).
+                     \n **SV**: CoronaVac (Sinovac).
+                     \n **GA**: Sputnik V/Gam-COVID-Vac (Gamaleya).
+                     \n **JA**: Ad26.COV2.S (Janssen).
+                     \n **PB**: BNT162b2 (Pfizer/BioNTech).''')
         with col2:
-            st.header("Fitted parameters for the Weibull distribution $(\lambda, k)$, for complete and incomplete doses. Values extractec from [2].")
-            
-            st.image("images/fitted_parameters.jpg", width=800)
-            vaccines = ["OA","CA","MO","SP","SV","GA","JA","PB"]
-            alfa_complet = [205.6, 166.0, 217.0, 191.0, 184.9, 206.2, 178.6, 235.3]
-            k_p = [2.9, 2.0, 3.6, 2.7, 2.5, 2.9, 3.0, 2.7]
-            alfa_incomplet = [65.5, 63.5, 83.5, 73.2, 70.1, 77.5,np.nan, 92.0]
-            k_f = [1.3, 1.15, 1.15, 1.15, 1.2, 1.2,np.nan, 1.1] 
-            # Now we show the table in the same column
-            complete = pd.DataFrame({"Vaccine":vaccines,"$\lambda$":alfa_complet,"$k$":k_p})
-            complete = complete.set_index('Vaccine')
-            incomplete = pd.DataFrame({"Vaccine":vaccines,"$\lambda$":alfa_incomplet,"$k$":k_f})
-            incomplete = incomplete.set_index('Vaccine')
-            st.write("Complete doses")
-            st.dataframe(complete.style.set_properties(**{'text-align': 'center'}),width=900)
-            st.write("Incomplete doses")
-            st.dataframe(incomplete.style.set_properties(**{'text-align': 'center'}),width=900)
-            
+            st.header("Fitted parameters for the Weibull distribution $(\lambda, k)$, for complete and incomplete doses.") # Values extractec from [2].")
+            col3, col4 = st.columns((2))
+            with col3:
+                st.write('#### Table 1. Complete dose')
+                _vaccines = ['(OA)', '(CA)', '(MO)', '(SP)', '(SV)', '(GA)', '(JA)', '(PB)']
+                _lambdas = [205.6, 166.0, 217.0, 191.0, 184.9, 206.2, 178.6, 235.3]
+                _ks = [2.9, 2.0, 3.6, 2.7, 2.5, 2.9, 3.0, 2.7]
+                df = pd.DataFrame()
+                df['Vaccine'] = _vaccines
+                df[r'''$\lambda_p$'''] = _lambdas
+                df[r'''$k_p$'''] = _ks
+                df = df.set_index('Vaccine')
+            # POnemos la tabla centrada
+                st.dataframe(df.style.set_properties(**{'text-align': 'center'}),width=900)
+            #st.image("images/fitted_parameters.jpg", width=500)
+            with col4:
+                st.write('#### Table 2. Incomplete dose')
+                _vaccines = ['(OA)', '(CA)', '(MO)', '(SP)', '(SV)', '(GA)', '(JA)', '(PB)']
+                _lambdas = [65.6, 63.5, 83.5, 73.2, 70.1, 77.5, '--', 92.0]
+                _ks = [1.3, 1.15, 1.15, 1.15, 1.2, 1.2, '--', 1.1]
+                df = pd.DataFrame()
+                df['Vaccine'] = _vaccines
+                df[r'''$$\lambda_f$$'''] = _lambdas
+                df[r'''$$k_f$$'''] = _ks
+                df = df.set_index('Vaccine')
+            # POnemos la tabla centrada
+                st.dataframe(df.style.set_properties(**{'text-align': 'center'}) ,width=900 )
+
         st.write(''' [1] M.A. Lozano, Ò. Garibo-i Orts, E. Piñol, M. Rebollo, K. Polotskaya,M.A. García-March, J.A. Conejero, F. Escolano, and N. Oliver, ‘Open Data  Science  to  Fight  COVID-19:  Winning  the  500k XPRIZE  Pandemic Response Challenge (Extended Abstract)’, in Proceedings of theThirty-First International Joint Conference on Artificial Intelligence,IJCAI-22, pp. 5304–5308. International Joint Conferences on Artificial Intelligence Organization, (2022). Sister Conferences Best Papers.''')
         st.write(''' [2] C. Hernandez-Suarez and E. Murillo-Zamora, ‘Waning immunity to SARS-CoV-2 following vaccination or infection’,Front. Med.,9,(2022).''')
             
