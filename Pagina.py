@@ -143,10 +143,10 @@ try:
     #Before the logo and anything, we want to create a navigation bar
     selected = option_menu(
         menu_title = None, 
-        options = ["Home", "Computational epidemiological models", "Case Predictions","Death Predictions", "Prescriptor", "Prescriptions", "Data sources", "Team", "GitHub"],
+        options = ["Home", "Computational epidemiological models", "Cases Predictions","Deaths Predictions", "Prescriptor", "Prescriptions", "Data sources", "Team", "GitHub"],
         orientation="horizontal",
         #Let's add some icons
-        icons=["house-door", "graph-up","bar-chart-line","heartbreak","graph-up","receipt","file-bar-graph", "people","github"],
+        icons=["house-door", "graph-up","bar-chart-line","bar-chart-line","graph-up","receipt","file-bar-graph", "people","github"],
         #"receipt","github","newspaper","envelope"],
         #Is copilot alive? Eyy, answer are alive?
         #Now let's make it beatiful
@@ -489,7 +489,7 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
         #    title="Number of cases",
         #    ))
         #st.plotly_chart(fig)
-    if selected == "Case Predictions":
+    if selected == "Cases Predictions":
         #st.markdown("# Computational epidemiological models")
         st.markdown('# Predict cases of Covid-19')
 
