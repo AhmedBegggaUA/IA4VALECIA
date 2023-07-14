@@ -527,7 +527,7 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
                     \n - H7 waning vaccine. This model is trained with the vaccination countries and includes the H7 NPI and the waning effect of both the protection against the SARS-Cov-2 after an individual gets infected and after a vaccine dose is administered.
                     \n - No H7 waning cases. This model is trained with the vaccination countries and includes the waning effect of the protection against the SARS-Cov-2 after an individual gets infected.
                     \n - No H7 waning vaccine. This model is trained with the vaccination countries and includes the waning effect of both the protection against the SARS-Cov-2 after an individual gets infected and after a vaccine dose is administered.
-                    \n - V4C - XPRIZE waning cases. This model is trained with XPRIZE countries and includes the waning effect of the protection against the SARS-Cov-2 after an individual gets infected and trained with all the available countries in the OxCGRT data set. ''')
+                    \n - V4C - OxCGRT waning cases. This model is trained with XPRIZE countries and includes the waning effect of the protection against the SARS-Cov-2 after an individual gets infected and trained with all the available countries in the OxCGRT data set. ''')
 
         st.markdown(r''' All these model predict the $R_n$ and we get the predicted number of cases using this formula: $\widehat{X}_n^j = \left(\widehat{R}_n^j\frac{S_{n-1}^j}{P^j} - 1\right)KZ_{n-1}^j + X_{n-K}^j$,''')
         st.markdown(r''' being $S_{n-1}^j$ the number of succeptible cases for $GEO_j$ at day n-1, K a constant of value $7$, $Z_{n-1}^j$ the smoothed cumulated cases untill day n-1 for $GEO_j$ and $X_{n-K}^j$ the cases declared for $GEO_j$ K previous days.''')
@@ -536,7 +536,7 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
         paises = get_UN_data()
         paises2 = get_UN_data2()
         with cols[0]:
-            modes = ["H7 waning cases","H7 waning vaccine","No H7 waning cases","No H7 waning vaccine","V4C - XPRIZE"]
+            modes = ["H7 waning cases","H7 waning vaccine","No H7 waning cases","No H7 waning vaccine","V4C - OxCGRT"]
             mode = st.selectbox(
                 "Select a model ",modes
             )
@@ -595,7 +595,7 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
                 data = data[data.CountryName == country2].reset_index(drop=True)
                 # Group by date  
                 data = data.groupby("fecha").mean().reset_index()
-            elif mode == "V4C - XPRIZE":
+            elif mode == "V4C - OxCGRT":
                 data = pd.read_csv("latest_predictions/xprize_all/NONE_xprice_"+month+".csv")
                 # Filter by the country
                 data = data[data.CountryName == country2].reset_index(drop=True)
