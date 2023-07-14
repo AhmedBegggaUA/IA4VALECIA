@@ -265,6 +265,7 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
                   
         with col1:
             st.header("Infected people returning to susceptible")
+            st.markdown(r'''We consider that people, once recovered from COVID-19, can get reinfected after $d_0$ = 14 days. Then the number of infected people that return to be susceptible on $GEO_j$ on the day n is estimated as:''')
             st.markdown('''
                     <style>
                     .katex {
@@ -285,6 +286,7 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
             st.markdown(r'''for $n \ge d_{0} + 1$, and $\lambda_{0} = 87.3$ and $k_{0} = 1.4$.''')
         with col2:
             st.header("Vaccinated people returning to susceptible")
+            st.markdown('''The number of vaccinated people that return to be susceptible after waning immunity can be estimated as:''')
             st.markdown('''
                     <style>
                     .katex {
@@ -304,6 +306,7 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
         col1, col2 = st.columns((2))
         with col1:
             st.header("Considered vaccines:")
+        
             st.write(''' \n  \n  \n
                      \n OA: ChAdOx1 (Oxford/Astrazeneca)
                      \n CA: Ad5-nCoV Convidecia (Cansino)
