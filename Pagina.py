@@ -642,7 +642,8 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
     if selected == "Deaths Predictions":
         st.markdown('# Predict deaths due to Covid-19')
         st.write('''- Death predictor. This model is trained with XPRIZE countries and includes the waning effect of the protection against the SARS-Cov-2 after an individual gets infected and trained with all the available countries in the OxCGRT data set.''')
-        st.markdown(r'''These models also predict the number of daily deaths to happen in each country from the $R_n$, in this case we use the formula: AÑADIR''')
+        st.markdown(r'''These models also predict the number of daily deaths to happen in each country from the $R_n$, in this case we use the formula: $\widehat{D}_n^j = \left(\widehat{R}_n^j\frac{S_{n-1}^j}{P^j} - 1\right)KZ_{n-1}^j + D_{n-K}^j$,''')
+        st.markdown(r''' being $S_{n-1}^j$ the number of succeptible cases for $GEO_j$ at day n-1, K a constant of value $7$, $Z_{n-1}^j$ the smoothed cumulated deaths untill day n-1 for $GEO_j$ and $D_{n-K}^j$ the declared deaths for $GEO_j$ K previous days.''')
         cols = st.columns((.2,1))
         paises = get_UN_data()
         paises2 = get_UN_data2()
