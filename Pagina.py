@@ -888,7 +888,7 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
             if len(gdf) != len(NPI_COLUMNS):
                 print("ERROR")
             #Another way to plot plotly, in this case it is called plotly express (See the documentation), the easy plotly
-            fig = px.bar(gdf, x ='Date', y=NPI_COLUMNS, color_discrete_sequence=px.colors.qualitative.Pastel)
+            fig = px.bar(gdf, x ='Date', y=NPI_COLUMNS, color_discrete_sequence=px.colors.qualitative.Bold)
             fig.update_layout(height=450, width=700)
             fig.update_layout(plot_bgcolor='rgba(0, 0, 0, 0)',paper_bgcolor='rgba(0, 0, 0, 0)',)
             #Let's add somelines to the background
