@@ -858,6 +858,8 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
                 'H2: Testing policy',
                 'H3: Contact tracing',
                 'H6: Facial Coverings']
+            # Now reverse the NPI_COLUMNS
+            NPI_COLUMNS = NPI_COLUMNS[::-1]
             region_name = None
             pdf = prescriptions
             #if not reg_pres:
