@@ -784,7 +784,7 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
             country_name = country_pres
             #if not reg_pres:
             #    stringency = stringency[(stringency.RegionName == region)]
-            cdf = stringency[(stringency['PrescriptorName'] == 'V4C') & (stringency.CountryName == country_pres)]
+            cdf = stringency[(stringency['PrescriptorName'] == 'FeatGreedy') & (stringency.CountryName == country_pres)]
             #Plotly
             fig = go.Figure()
             #We are going to plot different lines and scatter points, so we use the function add_trace
