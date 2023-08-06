@@ -799,14 +799,14 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
             # Dont show the legend
             fig.update_layout(showlegend=False)
             #Adittional function to get the pareto front (in the furture we will move it to another file)
-            xs, ys = plot_pareto_curve_plotly(list(cdf['Stringency']),list(cdf['PredictedDailyNewCases']))
+            xs, ys = plot_pareto_curve_plotly(list(cdf['PrescriptionIndex']),list(cdf['PredictedDailyNewCases']))
             #Same thing as before
             fig.add_trace(go.Scatter(x=xs,y=ys, 
                                     mode='lines',
                                     marker=dict(size=10,
                                     color = 'rgb(29, 126, 235 )')))
             #This plot I use it to show the point that we are going to choose
-            fig.add_trace(go.Scatter(x=[np.asarray(cdf['Stringency'])[index]],y=[np.asarray(cdf['PredictedDailyNewCases'])[index]],
+            fig.add_trace(go.Scatter(x=[np.asarray(cdf['PrescriptionIndex'])[index]],y=[np.asarray(cdf['PredictedDailyNewCases'])[index]],
                                     mode='markers',
                                     marker=dict(size=14,color = 'rgb(255, 0, 0 )'),
                                     line=dict(width=3,color='DarkSlateGrey')))
