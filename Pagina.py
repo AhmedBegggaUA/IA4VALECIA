@@ -31,7 +31,7 @@ data_URL = "https://raw.githubusercontent.com/OxCGRT/covid-policy-tracker/master
 
 #st.set_page_config(layout = 'wide')
 st.set_page_config(page_title = 'V4C',page_icon='https://ellisalicante.org/assets/xprize/images/logo_oscuro.png',layout = 'wide')
-@st.cache
+@st.cache_data
 def get_UN_data():
     #paises = pd.read_csv("countries_regions.csv")
     #return paises.set_index("CountryName")
@@ -42,7 +42,7 @@ def get_UN_data2():
     #return paises.set_index("CountryName")
     paises = pd.read_csv("latest_predictions/h7_all/H7_waning_casos_2021_5.csv")
     return paises.set_index("CountryName")
-@st.cache
+@st.cache_data
 def get_prescriptions_and_stringency():
     #prescription = pd.read_csv("prescriptions/valencia_h7_sus_combined_may.csv")
     prescription = pd.read_csv("prescriptions/standar_1_4.csv")
