@@ -835,7 +835,8 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
                 linecolor='black',
                 gridcolor='lightgrey'
             )
-            
+            # Vamos a poner las xticks de 0 a 9 para cada punto
+            fig.update_xaxes(tickvals=[0,1,2,3,4,5,6,7,8,9])
             data_fig1 = fig
             #Finally we plot the figure using st.plotly_chart
             st.plotly_chart(figure_or_data=fig)
