@@ -784,7 +784,7 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
             country_name = country_pres
             #if not reg_pres:
             #    stringency = stringency[(stringency.RegionName == region)]
-            cdf = stringency[(stringency['PrescriptorName'] == 'FeatGreedy') & (stringency.CountryName == country_pres)]
+            cdf = stringency[(stringency['PrescriptorName'] == 'V4C') & (stringency.CountryName == country_pres)]
             st.write(cdf)
             #Plotly
             fig = go.Figure()
