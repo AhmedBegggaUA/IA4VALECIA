@@ -791,7 +791,7 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
             fig = go.Figure()
             #We are going to plot different lines and scatter points, so we use the function add_trace
             #Inside the function we have the data and the type of plot, in this case scatter
-            fig.add_trace(go.Scatter(x=cdf['Stringency'],y=cdf['PredictedDailyNewCases'],
+            fig.add_trace(go.Scatter(x=cdf['PrescriptionIndex'],y=cdf['PredictedDailyNewCases'],
                                     name="V4C", 
                                     mode='markers',
                                     marker=dict(size=10,color = 'rgb(29, 126, 235 )',
