@@ -572,6 +572,7 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
             month = months_list_short[months_list.index(month)]
             svir = False
             st.write(" mode: ",mode," country: ",country2," month: ",month)
+            st.write("H7 waning cases (SIR)" == mode,"H7 waning cases (SIR)")
             if mode == "H7 waning cases (SIR)" and (country2 in paises_list):
                 st.write("Country: ",country2)
                 # Let's read the file with the predictions
