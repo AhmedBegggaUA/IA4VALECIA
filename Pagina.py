@@ -639,6 +639,7 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
                 
             # Now we plot the data
             with cols[1]:
+                st.write(data)
                 fig = go.Figure()
                 # Plot the ground truth in orange and dashed
                 fig.add_trace(go.Scatter(x=data['fecha'], y=data['truth'], mode='lines', name='Ground truth',line=dict(color='orange', width=4,dash='dash')))
