@@ -536,7 +536,7 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
         paises = get_UN_data()
         paises2 = get_UN_data2()
         with cols[0]:
-            modes = ["H7 waning cases","H7 waning vaccine","No H7 waning cases","No H7 waning vaccine","V4C - OxCGRT"]
+            modes = ["H7 waning cases (SIR)","H7 waning cases (SVIR)","H7 waning vaccine (SVIR)","No H7 waning cases (SVIR)","No H7 waning cases (SIR)","No H7 waning vaccine (SVIR)","V4C - OxCGRT"]
             mode = st.selectbox(
                 "Select a model ",modes
             )
@@ -568,14 +568,24 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
             # TODO: Estoy aqui
             month = st.selectbox('Choose a month in 2021  ', months_list)
             month = months_list_short[months_list.index(month)]
-            if mode == "H7 waning cases" and (country2 in paises_list):
+            svir = False
+            if mode == "H7 waning cases (SIR)" and (country2 in paises_list):
                 # Let's read the file with the predictions
                 data = pd.read_csv("latest_predictions/h7_waning_casos/H7_waning_casos_"+month+".csv")
                 # Filter by the country
                 data = data[data.CountryName == country2].reset_index(drop=True)
                 # Group by date  
                 data = data.groupby("fecha").mean().reset_index()
-            elif mode == "H7 waning vaccine"  and (country2 in paises_list):
+                
+            elif mode == "H7 waning cases (SVIR)" and (country2 in paises_list):
+                # Let's read the file with the predictions
+                data = pd.read_csv("latest_predictions/h7_waning_casos/H7_waning_casos_"+month+".csv")
+                # Filter by the country
+                data = data[data.CountryName == country2].reset_index(drop=True)
+                # Group by date  
+                data = data.groupby("fecha").mean().reset_index()
+                svir = True
+            elif mode == "H7 waning vaccine (SVIR)"  and (country2 in paises_list):
                 data = pd.read_csv("latest_predictions/h7_waning_casos_vacunas/H7_waning_casos_vacunas_"+month+".csv")
                 # Filter by the country
                 
@@ -583,18 +593,27 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
                 
                 # Group by date  
                 data = data.groupby("fecha").mean().reset_index()
-            elif mode == "No H7 waning cases" and (country2 in paises_list):
+                svir = True
+            elif mode == "No H7 waning cases (SVIR)" and (country2 in paises_list):
                 data = pd.read_csv("latest_predictions/None_waning_casos/None_waning_casos_"+month+".csv")
                 # Filter by the country
                 data = data[data.CountryName == country2].reset_index(drop=True)
                 # Group by date  
                 data = data.groupby("fecha").mean().reset_index()
-            elif mode == "No H7 waning vaccine" and (country2 in paises_list):
+                svir = True
+            elif mode == "No H7 waning cases (SIR)" and (country2 in paises_list):
+                data = pd.read_csv("latest_predictions/None_waning_casos/None_waning_casos_"+month+".csv")
+                # Filter by the country
+                data = data[data.CountryName == country2].reset_index(drop=True)
+                # Group by date  
+                data = data.groupby("fecha").mean().reset_index()
+            elif mode == "No H7 waning vaccine (SVIR)" and (country2 in paises_list):
                 data = pd.read_csv("latest_predictions/None_waning_casos_vacunas/None_waning_casos_vacunas_"+month+".csv")
                 # Filter by the country
                 data = data[data.CountryName == country2].reset_index(drop=True)
                 # Group by date  
                 data = data.groupby("fecha").mean().reset_index()
+                svir = True
             elif mode == "V4C - OxCGRT":
                 data = pd.read_csv("latest_predictions/xprize_all/NONE_xprice_"+month+".csv")
                 # Filter by the country
@@ -622,10 +641,11 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
                 fig.add_trace(go.Scatter(x=data['fecha'], y=data['truth'], mode='lines', name='Ground truth',line=dict(color='orange', width=4,dash='dash')))
                 # Plot the predictions in blue and solid
                 if mode != "Death predictor":
-                    fig.add_trace(go.Scatter(x=data['fecha'], y=data['pred'], mode='lines', name='Predictions SVIR',line=dict(color='blue', width=2)))
+                    if svir == True:
+                        fig.add_trace(go.Scatter(x=data['fecha'], y=data['pred'], mode='lines', name='Predictions SVIR',line=dict(color='blue', width=2)))
                     # Plot the predictions in blue and solid
-                
-                    fig.add_trace(go.Scatter(x=data['fecha'], y=data['pred_sir'], mode='lines', name='Predictions SIR',line=dict(color='green', width=2)))
+                    else:
+                        fig.add_trace(go.Scatter(x=data['fecha'], y=data['pred_sir'], mode='lines', name='Predictions SIR',line=dict(color='green', width=2)))
                 else:
                     fig.add_trace(go.Scatter(x=data['fecha'], y=data['pred'], mode='lines', name='Predicted Deaths',line=dict(color='blue', width=2)))
                 fig.update_layout(
