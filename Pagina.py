@@ -572,13 +572,15 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
             svir = False
             
             if mode == "H7 waning cases (SIR)" and (country2 in paises_list2):
-                st.write("Country: ",country2)
                 # Let's read the file with the predictions
                 data = pd.read_csv("latest_predictions/h7_waning_casos/H7_waning_casos_"+month+".csv")
+                st.write(data)
                 # Filter by the country
                 data = data[data.CountryName == country2].reset_index(drop=True)
+                st.write(data)
                 # Group by date  
                 data = data.groupby("fecha").mean().reset_index()
+                st.write(data)
                 
             elif mode == "H7 waning cases (SVIR)" and (country2 in paises_list2):
                 # Let's read the file with the predictions
