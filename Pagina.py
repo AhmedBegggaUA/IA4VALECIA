@@ -548,19 +548,12 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
             paises_list2 = sorted(paises_list2)
             #paises_list.insert(0, "Europe")
             #paises_list.insert(0, "Overall")
+            st.write(" Model: ",mode)
             if mode == "H7 waning vaccine (SVIR)":
                 country2 = st.selectbox(
                     "Choose countries ",paises_list
                 )
-            elif mode == "H7 waning vaccine (SIR)":
-                country2 = st.selectbox(
-                    "Choose countries ",paises_list
-                )
             elif mode == "No H7 waning vaccine (SVIR)":
-                country2 = st.selectbox(
-                    "Choose countries ",paises_list
-                )
-            elif mode == "No H7 waning vaccine (SIR)":
                 country2 = st.selectbox(
                     "Choose countries ",paises_list
                 )
