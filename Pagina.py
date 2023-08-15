@@ -576,6 +576,7 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
                 data = pd.read_csv("latest_predictions/h7_waning_casos/H7_waning_casos_"+month+".csv")
                 st.write(data)
                 # Filter by the country
+                st.write(country2)
                 data = data[data.CountryName == country2].reset_index(drop=True)
                 st.write(data)
                 # Group by date  
