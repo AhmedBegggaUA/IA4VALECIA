@@ -553,6 +553,7 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
                 country2 = st.selectbox(
                     "Choose countries ",paises_list
                 )
+            
             elif mode == "No H7 waning vaccine (SVIR)":
                 country2 = st.selectbox(
                     "Choose countries ",paises_list
@@ -571,6 +572,7 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
             month = months_list_short[months_list.index(month)]
             svir = False
             if mode == "H7 waning cases (SIR)" and (country2 in paises_list):
+                st.write("Country: ",country2)
                 # Let's read the file with the predictions
                 data = pd.read_csv("latest_predictions/h7_waning_casos/H7_waning_casos_"+month+".csv")
                 # Filter by the country
