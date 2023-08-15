@@ -548,7 +548,6 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
             paises_list2 = sorted(paises_list2)
             #paises_list.insert(0, "Europe")
             #paises_list.insert(0, "Overall")
-            st.write(" Model: ",mode)
             if mode == "H7 waning vaccine (SVIR)":
                 country2 = st.selectbox(
                     "Choose countries ",paises_list
@@ -571,10 +570,8 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
             month = st.selectbox('Choose a month in 2021  ', months_list)
             month = months_list_short[months_list.index(month)]
             svir = False
-            st.write(" mode: ",mode," country: ",country2," month: ",month)
-            st.write("H7 waning cases (SIR)" == mode,"H7 waning cases (SIR)")
-            st.write(country2 in paises_list,"country2 in paises_list")
-            if mode == "H7 waning cases (SIR)" and (country2 in paises_list):
+            
+            if mode == "H7 waning cases (SIR)" and (country2 in paises_list2):
                 st.write("Country: ",country2)
                 # Let's read the file with the predictions
                 data = pd.read_csv("latest_predictions/h7_waning_casos/H7_waning_casos_"+month+".csv")
@@ -583,7 +580,7 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
                 # Group by date  
                 data = data.groupby("fecha").mean().reset_index()
                 
-            elif mode == "H7 waning cases (SVIR)" and (country2 in paises_list):
+            elif mode == "H7 waning cases (SVIR)" and (country2 in paises_list2):
                 # Let's read the file with the predictions
                 data = pd.read_csv("latest_predictions/h7_waning_casos/H7_waning_casos_"+month+".csv")
                 # Filter by the country
@@ -600,14 +597,14 @@ SUPERA COVID-19 Santander-CRUE (CD4COVID19 2020–2021), Fundación BBVA for SAR
                 # Group by date  
                 data = data.groupby("fecha").mean().reset_index()
                 svir = True
-            elif mode == "No H7 waning cases (SVIR)" and (country2 in paises_list):
+            elif mode == "No H7 waning cases (SVIR)" and (country2 in paises_list2):
                 data = pd.read_csv("latest_predictions/None_waning_casos/None_waning_casos_"+month+".csv")
                 # Filter by the country
                 data = data[data.CountryName == country2].reset_index(drop=True)
                 # Group by date  
                 data = data.groupby("fecha").mean().reset_index()
                 svir = True
-            elif mode == "No H7 waning cases (SIR)" and (country2 in paises_list):
+            elif mode == "No H7 waning cases (SIR)" and (country2 in paises_list2):
                 data = pd.read_csv("latest_predictions/None_waning_casos/None_waning_casos_"+month+".csv")
                 # Filter by the country
                 data = data[data.CountryName == country2].reset_index(drop=True)
